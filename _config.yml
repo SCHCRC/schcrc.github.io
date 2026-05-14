@@ -1,0 +1,62 @@
+title: SCH사이버보안연구센터
+description: SCH Cybersecurity Research Center 공식 홈페이지. <br> 악성코드 분석 및 사이버 범죄 그룹 추적, 국내외 유관기관의 협력을 통해 사이버 위협 및 사이버전 대응과 관련된 연구를 진행하고 있습니다.
+url: ""
+baseurl: ""
+lang: ko-KR
+timezone: Asia/Seoul
+
+markdown: kramdown
+permalink: pretty
+
+collections:
+  news:
+    output: true
+    permalink: /news/:name/
+  blog:
+    output: true
+    permalink: /blog/:name/
+  people:
+    output: true
+    permalink: /researchers/:name/
+  project_pages:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+  - scope:
+      path: ""
+      type: news
+    values:
+      layout: post
+      section: news
+  - scope:
+      path: ""
+      type: blog
+    values:
+      layout: post
+      section: blog
+  - scope:
+      path: ""
+      type: people
+    values:
+      layout: researcher
+  - scope:
+      path: ""
+      type: project_pages
+    values:
+      layout: project
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - README.md
+  - vendor
+  - vendor/bundle
+  - vendor/bundle-arm
+  - .bundle

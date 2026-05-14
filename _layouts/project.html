@@ -1,0 +1,121 @@
+---
+layout: default
+---
+
+<section class="page-hero">
+  <div class="site-shell">
+    <p class="eyebrow">Project Detail</p>
+    <h1>{{ page.title }}</h1>
+    <p>{{ page.summary }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="site-shell">
+    <article class="researcher-profile">
+      <div class="researcher-profile__main">
+        <p class="meta">
+          {% if page.status %}{{ page.status }}{% endif %}
+          {% if page.period %} · {{ page.period }}{% endif %}
+        </p>
+        <h2>프로젝트 개요</h2>
+        <p>{{ page.overview }}</p>
+
+        <div class="researcher-block">
+          <h3>핵심 주제</h3>
+          {% if page.topics and page.topics.size > 0 %}
+          <ul class="tag-list">
+            {% for item in page.topics %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p>추가 예정</p>
+          {% endif %}
+        </div>
+
+        <div class="researcher-block">
+          <h3>진행 내용</h3>
+          {% if page.activities and page.activities.size > 0 %}
+          <div class="researcher-history">
+            {% for item in page.activities %}
+            <article class="researcher-history__item">
+              <p class="meta">{{ item.period }}</p>
+              <h4>{{ item.title }}</h4>
+              <p>{{ item.description }}</p>
+            </article>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p>추가 예정</p>
+          {% endif %}
+        </div>
+
+        <div class="researcher-block">
+          <h3>산출물 및 관련 링크</h3>
+          {% if page.outputs and page.outputs.size > 0 %}
+          <div class="researcher-history">
+            {% for item in page.outputs %}
+            <article class="researcher-history__item">
+              <p class="meta">{{ item.type }}</p>
+              <h4>{{ item.title }}</h4>
+              <p>{{ item.description }}</p>
+              {% if item.url %}
+              <p><a class="text-link" href="{{ item.url }}">관련 링크 보기</a></p>
+              {% endif %}
+            </article>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p>추가 예정</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <aside class="researcher-profile__side">
+        <div class="researcher-meta">
+          <h3>기본 정보</h3>
+          <dl>
+            <div>
+              <dt>프로젝트명</dt>
+              <dd>{{ page.title }}</dd>
+            </div>
+            {% if page.status %}
+            <div>
+              <dt>상태</dt>
+              <dd>{{ page.status }}</dd>
+            </div>
+            {% endif %}
+            {% if page.period %}
+            <div>
+              <dt>기간</dt>
+              <dd>{{ page.period }}</dd>
+            </div>
+            {% endif %}
+            {% if page.owner %}
+            <div>
+              <dt>주관</dt>
+              <dd>{{ page.owner }}</dd>
+            </div>
+            {% endif %}
+          </dl>
+        </div>
+
+        <div class="researcher-meta">
+          <h3>요약 포인트</h3>
+          {% if page.highlights and page.highlights.size > 0 %}
+          <ul class="researcher-achievements">
+            {% for item in page.highlights %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p>추가 예정</p>
+          {% endif %}
+        </div>
+
+        <p class="researcher-back"><a class="text-link" href="{{ '/projects/' | relative_url }}">프로젝트 목록으로 돌아가기</a></p>
+      </aside>
+    </article>
+  </div>
+</section>

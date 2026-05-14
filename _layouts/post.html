@@ -1,0 +1,59 @@
+---
+layout: default
+---
+
+<div class="site-shell">
+  <article class="post">
+    <header class="post__header">
+      <p class="eyebrow">
+        {% if page.section == "news" %}Center News{% else %}Research Blog{% endif %}
+      </p>
+      <h1>{{ page.title }}</h1>
+      <p class="meta">
+        {{ page.date | date: "%Y.%m.%d" }}
+        {% if page.author %} · {{ page.author }}{% endif %}
+        {% if page.category %} · {{ page.category }}{% endif %}
+        {% if page.topic %} · {{ page.topic }}{% endif %}
+      </p>
+    </header>
+
+    {% if page.cover_image %}
+    <figure class="post__cover">
+      <img src="{{ page.cover_image | relative_url }}" alt="{{ page.cover_image_alt | default: page.title }}">
+      {% if page.cover_image_caption %}
+      <figcaption>{{ page.cover_image_caption }}</figcaption>
+      {% endif %}
+    </figure>
+    {% endif %}
+
+    <div class="post__content">
+      {{ content }}
+    </div>
+
+    {% if page.attachments %}
+    <section class="post__attachments">
+      <h2>첨부파일</h2>
+      <ul class="attachment-list">
+        {% for file in page.attachments %}
+        <li>
+          <a href="{{ file.url | relative_url }}" {% if file.download %}download{% endif %}>
+            {{ file.label | default: file.url }}
+          </a>
+          {% if file.description %}
+          <p>{{ file.description }}</p>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    <footer class="post__footer">
+      {% if page.section == "news" %}
+      <a class="text-link" href="{{ '/news/' | relative_url }}">센터 소식 목록으로</a>
+      {% else %}
+      <a class="text-link" href="{{ '/blog/' | relative_url }}">센터 블로그 목록으로</a>
+      {% endif %}
+    </footer>
+  </article>
+</div>

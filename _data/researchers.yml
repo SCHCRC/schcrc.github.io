@@ -1,0 +1,43 @@
+current:
+  - name: 이창엽
+    slug: changyeop-lee
+    generation: 25
+    role: 연구원
+    focus: 침해사고대응 및 악성코드 분석 연구를 수행하고 있습니다.
+    tags:
+      - 침해대응
+      - 악성코드 분석
+  - name: 소윤선
+    slug: yoonseon-so
+    generation: 26
+    role: 연구원
+    focus: 침해사고대응 및 악성코드 분석 연구를 수행하고 있습니다.
+    tags:
+      - 침해대응
+      - 악성코드 분석
+
+alumni:
+  - name: 김동언
+    slug: dongeon-kim
+    generation: 14
+    outcome: BoB 12기 WhiteHat 10 선정, 2024 충청권 사이버보안 경진대회 우수상, 금융보안 아카데미 2024 장려상 등 다수 성과를 달성했습니다.
+  - name: 이수지
+    slug: suji-lee
+    generation: 16
+    outcome: MCL 연구실(이유식 교수님) 석사 과정에 진학했습니다.
+  - name: 안병열
+    slug: byeongyeol-an
+    generation: 17
+    outcome: S2W 위협분석팀(BLKSMTH)으로 진출했습니다.
+  - name: 송훈석
+    slug: hunseok-song
+    generation: 20
+    outcome: 고려대학교 정보보호대학원 석사 진학 및 2024 KDFS 챌린지 학생트랙 대상·장려상을 달성했습니다.
+  - name: 장원식
+    slug: wonsik-jang
+    generation: 21
+    outcome: AhnLab 분석팀 인턴으로 활동했습니다.
+  - name: 임수환
+    slug: suwhan-lim
+    generation: 22
+    outcome : AhnLab ASEC 분석팀으로 진출했습니다.
