@@ -3,6 +3,8 @@ title: SCH사이버보안연구센터 26기 연구원 모집 안내
 date: 2026-03-20
 author: SCH사이버보안연구센터
 category: 모집
+generation: 26
+closes: 2026-03-20
 ---
 
 SCH사이버보안연구센터에서 26기 신입 연구원을 모집했습니다.

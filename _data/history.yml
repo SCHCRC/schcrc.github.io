@@ -2,14 +2,26 @@
     label: 센터 설립
     title: SCH 사이버보안연구센터 설립 
     description: 최근 지능화된 사이버 위협 및 사이버전 대응 능력 확보 및 국내외 유관기관과의 사이버 보안 협력 강화를 위해 센터가 설립되었습니다.
+    image: /assets/uploads/history/2013-center-founding.jpg
+    image_alt: 센터 설립 당시 행사 사진
   - year: 2014
     label: 센터 활동
     title: SCH 사이버보안연구센터 컨퍼런스 개최
     description: 사이버전과 APT의 악성코드를 분석하고 연구하는 SCH사이버보안연구센터의 주요 악성코드 정보를 공유하는 컨퍼런스를 개최했습니다.
+    image: /assets/uploads/history/2014-conference.jpg
+    image_alt: 2014 센터 컨퍼런스 현장
   - year: 2017
     label: 센터 활동
     title: 더블체인과 블록체인 협약체결
     description: 블록체인보안 전문인력 양성을 위한 더블체인과의 협약을 체결했습니다.
+    image: /assets/uploads/history/2017-doublechain-mou.jpg
+    image_alt: 더블체인 업무협약 체결식
+  - year: 2021
+    label: 방향 설정
+    title: 사이버 공격 대응 프레임워크 연구로 방향 전환
+    description: 악성코드 분석, 조기 탐지, 사전 예측, 활동 추적을 하나로 묶는 사이버 공격 대응 프레임워크를 연구 축으로 삼았습니다.
+    image: /assets/uploads/history/2021-direction.jpg
+    image_alt: 센터 로고
   - year: 2024
     label: 센터 활동
     title: 누리랩과 최신 사이버 위협 대응 MOU 체결
@@ -17,7 +29,7 @@
   - year: 2024
     label: 국제 교류
     title: 제9회 KISTI-NICT 국제 공동 워크숍 참석
-    description: 국제 공동 워크숍에 참석해 보안 연구 네트워크를 확장하고 최신 기술 흐름을 공유했습니다.
+    description: KISTI와 일본 NICT가 공동 주최한 워크숍에 연구원이 참석했습니다.
   - year: 2024
     label: 주요 성과
     title: 24년도 다수 외부 프로그램 합격 및 경진대회 수상
@@ -25,7 +37,7 @@
   - year: 2025
     label: 주요 성과
     title: 25년도 신입 공채, 실무 교육, 대회 수상 성과 확대
-    description: NAVER Cloud, ASEC, K-Shield Jr., 금융보안 아카데미 2025 최우수상, 호남·영남권 사이버보안 대회 수상 등으로 실무형 성과를 이어갔습니다.
+    description: NAVER Cloud와 ASEC 인턴, K-Shield Jr. 수료, 금융보안 아카데미 2025 최우수상, 호남·영남권 사이버보안 대회 수상.
   - year: 2026
     label: 운영
     title: 26기 연구원 모집 진행

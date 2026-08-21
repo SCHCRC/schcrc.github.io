@@ -3,7 +3,6 @@ current:
     slug: changyeop-lee
     generation: 25
     role: 연구원
-    focus: 침해사고대응 및 악성코드 분석 연구를 수행하고 있습니다.
     tags:
       - 침해대응
       - 악성코드 분석
@@ -11,24 +10,49 @@ current:
     slug: yoonseon-so
     generation: 26
     role: 연구원
-    focus: 침해사고대응 및 악성코드 분석 연구를 수행하고 있습니다.
     tags:
       - 침해대응
       - 악성코드 분석
+  - name: 이현우
+    slug: hyeonwoo-lee
+    generation: 26
+    role: 연구원
+    tags:
+      - 디지털 포렌식
 
 alumni:
   - name: 김동언
     slug: dongeon-kim
     generation: 14
     outcome: BoB 12기 WhiteHat 10 선정, 2024 충청권 사이버보안 경진대회 우수상, 금융보안 아카데미 2024 장려상 등 다수 성과를 달성했습니다.
+  - name: 서성환
+    slug: seonghwan-seo
+    generation: 15
+    outcome: 모바일 악성코드 크롤러와 APK 악성코드 메모리 덤프 기계학습 프로젝트를 수행했고, 2022 상반기 보고서의 DarkSide·Hermetic 분석을 담당했습니다.
   - name: 이수지
     slug: suji-lee
     generation: 16
     outcome: MCL 연구실(이유식 교수님) 석사 과정에 진학했습니다.
+  - name: 박준형
+    slug: junhyeong-park
+    generation: 16
+    outcome: "-"
   - name: 안병열
     slug: byeongyeol-an
     generation: 17
     outcome: S2W 위협분석팀(BLKSMTH)으로 진출했습니다.
+  - name: 이익규
+    slug: ikgyu-lee
+    generation: 17
+    outcome: APK 악성코드 메모리 덤프 기계학습 프로젝트에 참여했고, 2022 상·하반기 보고서의 UA_WAR_RAT·Vohuk 분석을 담당했습니다.
+  - name: 송현호
+    slug: hyeonho-song
+    generation: 18
+    outcome: AI & ELK STACK 악성코드 분석과 기초교육 프로젝트를 수행했고, 2022 하반기·2023 상반기 보고서의 AgentTesla·Lukitus 분석을 담당했습니다.
+  - name: 신동호
+    slug: dongho-shin
+    generation: 18
+    outcome: 윈도우 EDR 솔루션과 Antivirus 오픈소스 프로젝트를 수행했고, 2022 하반기·2023 상반기 보고서의 CryptBot·GlobeImposter 분석을 담당했습니다.
   - name: 송훈석
     slug: hunseok-song
     generation: 20
@@ -37,7 +61,11 @@ alumni:
     slug: wonsik-jang
     generation: 21
     outcome: AhnLab 분석팀 인턴으로 활동했습니다.
+  - name: 김민수
+    slug: minsu-kim
+    generation: 21
+    outcome: "-"
   - name: 임수환
     slug: suwhan-lim
     generation: 22
-    outcome : AhnLab ASEC 분석팀으로 진출했습니다.
+    outcome: AhnLab ASEC 분석팀으로 진출했습니다.

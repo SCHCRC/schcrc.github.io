@@ -10,8 +10,6 @@ attachments:
     download: true
 ---
 
-**2022 하반기 분석 보고서**
-
 2022년 하반기 보고서에는 지속적인 업그레이드로 2022년도에 3.0 버전까지 발견된 LockBit, Vohuk와 서유럽권 및 미국을 대상으로 공격을 진행한 APT 형식의 Black Basta 랜섬웨어, 2022년 7월 발견된 Raccoon Stealer v1 변종인 Raccoon Stealer v2, 2014년부터 현재까지도 활발히 활동하는 AgentTesla의 분석 내용을 담고 있습니다.
 
 ## 분석 내용
