@@ -1,9 +1,11 @@
 title: SCH사이버보안연구센터
-description: SCH Cybersecurity Research Center 공식 홈페이지. <br> 악성코드 분석 및 사이버 범죄 그룹 추적, 국내외 유관기관의 협력을 통해 사이버 위협 및 사이버전 대응과 관련된 연구를 진행하고 있습니다.
-url: ""
+description: 순천향대학교 SCH사이버보안연구센터 공식 홈페이지. 학부 연구원이 악성코드를 직접 분석해 반기마다 보고서를 공개합니다.
+url: "https://schcrc.github.io"
 baseurl: ""
+email: schcsrc@gmail.com
 lang: ko-KR
 timezone: Asia/Seoul
+logo: /assets/branding/og-image.jpg
 
 markdown: kramdown
 permalink: pretty
@@ -27,35 +29,54 @@ defaults:
       path: ""
     values:
       layout: default
+      image: /assets/branding/og-image.jpg
   - scope:
       path: ""
       type: news
     values:
       layout: post
       section: news
+      section_path: /news/
   - scope:
       path: ""
       type: blog
     values:
       layout: post
       section: blog
+      section_path: /blog/
   - scope:
       path: ""
       type: people
     values:
       layout: researcher
+      section_path: /researchers/
   - scope:
       path: ""
       type: project_pages
     values:
       layout: project
+      section_path: /projects/
 
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+# jekyll-feed 는 기본으로 site.posts 를 봅니다. 이 사이트는 _posts 가 없고
+# 커스텀 컬렉션만 쓰므로 명시하지 않으면 빈 feed.xml 이 나옵니다.
+feed:
+  collections:
+    blog:
+      path: /feed/blog.xml
+    news:
+      path: /feed/news.xml
+
 exclude:
   - README.md
+  - PRODUCT.md
+  - DESIGN.md
+  - UPDATE_GUIDELINES.md
+  - QUICK_START_FOR_RESEARCHERS.md
+  - .impeccable
   - vendor
   - vendor/bundle
   - vendor/bundle-arm

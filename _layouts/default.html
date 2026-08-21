@@ -3,61 +3,85 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-    <meta name="description" content="{{ page.description | default: site.description }}">
+    <title>{% if page.title and page.url != "/" %}{{ page.title }} | {% endif %}{{ site.title }}</title>
     <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicon/favicon-32x32.png' | relative_url }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicon/favicon-16x16.png' | relative_url }}">
     <link rel="shortcut icon" href="{{ '/assets/favicon/favicon.ico' | relative_url }}">
-    <meta name="theme-color" content="#070b14">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=JetBrains+Mono:wght@400&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0a0e17">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-    {% seo %}
+    <link rel="alternate" type="application/atom+xml" title="센터 블로그" href="{{ '/feed/blog.xml' | relative_url }}">
+    <link rel="alternate" type="application/atom+xml" title="센터 소식" href="{{ '/feed/news.xml' | relative_url }}">
+    {% seo title=false %}
   </head>
   <body>
-    <div class="site-topbar">
-      <div class="site-shell site-topbar__inner">
-        <span>SCH CYBER SECURITY RESEARCH CENTER</span>
-        <span>Official Website</span>
-      </div>
-    </div>
+<!--
+IMPECCABLE DIRECTION CONTRACT · seed 86be779d
+THESIS: A student malware-analysis center proves itself with the reports it publishes. Keeps the dark technical ground its audience recognised and refuses the decoration that came with it: fake code rain, purple gradient buttons, neon glow.
+OWN-WORLD: Navy-black grounds in four fixed steps, hairline rules instead of cards, one crimson accent sampled from the centre's own hexagon logo, Pretendard at 800 for display, monospace reserved for real data (malware names, dates, cohort numbers). No eyebrows, no section numbers, no metric tiles.
+STORY: A prospective undergraduate reads the newest report title and its malware list, downloads the PDF, sees where alumni went, then applies.
+FIRST VIEWPORT: Full-bleed red network graphic (the centre's own asset) under a 0.93+ scrim; display headline masked up in two lines at left over three-then-four inline facts; raised translucent panel at right carrying the newest report and three news items, readable without scrolling.
+FORM: Dark technical, executed straight. Chosen after the light institutional reading was rejected four times and all three candidates were served side by side for comparison. Craft bar: the centre's own previous site, minus its decoration.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
+    <a class="skip-link" href="#main">본문으로 바로가기</a>
     <header class="site-header">
       <div class="site-shell site-header__inner">
         <a class="brand" href="{{ '/' | relative_url }}">
           <span class="brand__mark">
-            <img src="{{ '/assets/branding/센터.png' | relative_url }}" alt="SCH사이버보안연구센터 로고">
+            <img src="{{ '/assets/branding/center-logo-96.png' | relative_url }}" alt="" width="40" height="40">
           </span>
           <span class="brand__text">
             <strong>SCH사이버보안연구센터</strong>
             <small>SCH Cybersecurity Research Center</small>
           </span>
         </a>
-        <nav class="site-nav">
-          <a href="{{ '/news/' | relative_url }}">센터 소식</a>
-          <a href="{{ '/blog/' | relative_url }}">센터 블로그</a>
-          <a href="{{ '/projects/' | relative_url }}">센터 프로젝트</a>
-          <a href="{{ '/infrastructure/' | relative_url }}">센터 인프라</a>
-          <a href="{{ '/researchers/' | relative_url }}">연구원 현황</a>
-          <a href="{{ '/history/' | relative_url }}">센터 연혁</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="nav-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          메뉴
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="주요 메뉴">
+          {% assign nav = "/news/,센터 소식|/blog/,센터 블로그|/projects/,센터 프로젝트|/infrastructure/,센터 인프라|/researchers/,연구원 현황|/history/,센터 연혁" | split: "|" %}
+          {% for entry in nav %}
+            {% assign parts = entry | split: "," %}
+            {% assign href = parts[0] %}
+            <a href="{{ href | relative_url }}"{% if page.url == href or page.section_path == href %} aria-current="page"{% endif %}>{{ parts[1] }}</a>
+          {% endfor %}
         </nav>
       </div>
     </header>
 
-    <main class="site-main">
+    <main class="site-main" id="main" tabindex="-1">
       {{ content }}
     </main>
 
     <footer class="site-footer">
-      <div class="site-shell site-footer__inner">
-        <div>
-          <strong>{{ site.title }}</strong>
-          <p>{{ site.description }}</p>
+      <div class="site-shell">
+        <div class="site-footer__inner">
+          <div>
+            <strong>{{ site.title }}</strong>
+            <p>학부 연구원이 악성코드를 직접 분석해 반기마다 보고서를 냅니다. 침해사고 대응과 공격 그룹 추적을 함께 연구합니다.</p>
+          </div>
+          <div>
+            <h2>찾아오는 길</h2>
+            <p>[31538] 충남 아산시 순천향로 22-3<br>순천향대학교 공과대학 9332호</p>
+            {% if site.email %}
+            <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+            {% endif %}
+          </div>
+          <div>
+            <h2>바로가기</h2>
+            <div class="footer-links">
+              <a href="{{ '/news/' | relative_url }}">센터 소식</a>
+              <a href="{{ '/blog/' | relative_url }}">센터 블로그</a>
+              <a href="{{ '/projects/' | relative_url }}">센터 프로젝트</a>
+              <a href="{{ '/researchers/' | relative_url }}">연구원 현황</a>
+              <a href="https://github.com/SCHCRC">GitHub</a>
+            </div>
+          </div>
         </div>
-        <div>
-          <p>순천향대학교 산학협력단 산하</p>
-          <p>공과대학 9332호</p>
-        </div>
+        <p class="site-footer__base">© {{ 'now' | date: "%Y" }} SCH사이버보안연구센터 · 순천향대학교 산학협력단 산하</p>
       </div>
     </footer>
     <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>

@@ -3,96 +3,92 @@ title: SCH사이버보안연구센터
 permalink: /
 ---
 
+{% assign recruit = site.news | where: "category", "모집" | sort: "date" | last %}
+{% assign reports = site.blog | where: "topic", "분석 보고서" | sort: "date" | reverse %}
+{% assign latest_news = site.news | sort: "date" | reverse %}
+{% assign projects = site.project_pages | sort: "date" | reverse %}
+{% assign latest_blog = site.blog | sort: "date" | reverse %}
+{% assign alumni = site.data.researchers.alumni | sort: "generation" | reverse %}
+
 <section class="hero">
-  <div class="hero__code-rain" aria-hidden="true">
-    <span>int main(void) {
-  init_sensor();
-  while (packet = recv()) {
-    if (detect_ioc(packet)) alert();
-  }
-  return EXIT_SUCCESS;
-}
-
-static int detect_ioc(pkt_t *p) {
-  return hash_match(p) || yara_hit(p);
-}</span>
-    <span>typedef struct {
-  char hash[65];
-  uint32_t pid;
-  uint8_t risk;
-} sample_t;
-
-sample_t s = parse_sample(buf);
-if (s.risk > 7) {
-  isolate_host(s.pid);
-}</span>
-    <span>for (int i = 0; i < n; i++) {
-  score += yara_scan(buf[i]);
-  trace_actor(flow[i]);
-  if (score > threshold) break;
-}
-
-fprintf(report, "%08x:%s", score, tag);
-}</span>
-    <span>push rbp
-mov rbp, rsp
-sub rsp, 0x40
-mov rdi, [rbp-0x18]
-call yara_scan
-test eax, eax
-jnz short loc_alert
-xor eax, eax
-leave
-ret</span>
-    <span>loc_unpack:
-lea rcx, [rip+section]
-mov edx, 0x200
-call entropy_check
-cmp eax, 7
-jg loc_decrypt
-nop
-jmp loc_report
-
-loc_decrypt:
-xor byte ptr [rsi], 0x5A
-inc rsi</span>
-  </div>
+  <div class="hero__bg" aria-hidden="true"></div>
   <div class="site-shell hero__inner">
     <div class="hero__content">
-      <p class="hero__kicker">SCH Cybersecurity Research Center</p>
-      <h1>SCH 사이버보안연구센터</h1>
+      <h1>
+        <span class="hero__line"><span>악성코드를 분석하고,</span></span>
+        <span class="hero__line"><span>분석한 것을 공개합니다</span></span>
+        <span class="hero__en">SCH Cybersecurity Research Center</span>
+      </h1>
       <p class="hero__lead">
-        악성코드 분석 및 사이버 범죄 그룹 추적, 국내외 유관기관의 협력을 통해 <br>
-        사이버 위협 및 사이버전 대응과 관련된 연구를 진행하고 있습니다.
+        순천향대학교 산학협력단 산하 연구센터입니다. 학부 연구원이 악성코드를 직접 분석하고,
+        그 결과를 반기 보고서로 공개합니다.
       </p>
+      {% comment %} 마감된 뒤에도 '모집 안내'를 주 버튼에 두면 열려 있는 것처럼 읽힌다. {% endcomment %}
+      {% assign today = 'now' | date: '%Y%m%d' | plus: 0 %}
+      {% if recruit.closes %}
+        {% assign recruit_closes = recruit.closes | date: '%Y%m%d' | plus: 0 %}
+      {% else %}
+        {% assign recruit_closes = recruit.date | date: '%Y%m%d' | plus: 0 %}
+      {% endif %}
       <div class="hero__actions">
-        <a class="button button--primary" href="{{ '/news/' | relative_url }}">센터 소식 보기</a>
-        <a class="button button--ghost" href="{{ '/blog/' | relative_url }}">연구 블로그 보기</a>
+        {% if recruit and recruit_closes >= today %}
+        <a class="button button--primary" href="{{ recruit.url | relative_url }}">{{ recruit.generation | default: 26 }}기 연구원 모집 중</a>
+        {% else %}
+        <a class="button button--primary" href="{{ '/blog/' | relative_url }}">분석 보고서 보기</a>
+        {% endif %}
+        <a class="button button--ghost" href="{{ '/projects/' | relative_url }}">수행 프로젝트 보기</a>
       </div>
+      <dl class="hero__facts">
+        <div>
+          <dt>센터장</dt>
+          <dd>엄홍열 교수</dd>
+        </div>
+        <div>
+          <dt>설립</dt>
+          <dd>2013년 12월</dd>
+        </div>
+        <div>
+          <dt>공개 보고서</dt>
+          <dd>{{ reports.size }}권 · 반기 발간</dd>
+        </div>
+        <div>
+          <dt>배출 연구원</dt>
+          <dd>{{ alumni.size }}명 · 14기부터</dd>
+        </div>
+      </dl>
     </div>
-  </div>
-</section>
 
-<section class="section section--identity">
-  <div class="site-shell">
-    <div class="section__heading">
-      <p class="eyebrow">Center Identity</p>
-      <h2>센터 기본 정보</h2>
-      <p>센터장 및 소속, 위치에 대한 정보입니다.</p>
-    </div>
-    <div class="identity-list">
-      <article class="identity-item">
-        <span>센터장</span>
-        <strong>엄홍열 교수</strong>
-      </article>
-      <article class="identity-item">
-        <span>소속</span>
-        <strong>순천향대학교 산학협력단 산하</strong>
-      </article>
-      <article class="identity-item">
-        <span>위치</span>
-        <strong>공과대학 9332호</strong>
-      </article>
+    <div class="hero__aside">
+      {% assign top_report = reports | first %}
+      {% if top_report %}
+      {% assign top_file = top_report.attachments | first %}
+      <h2>
+        최신 보고서
+        <a href="{{ '/blog/' | relative_url }}" aria-label="보고서 전체 보기">전체 보기</a>
+      </h2>
+      <div class="hero__report">
+        <p class="meta">{{ top_report.date | date: "%Y.%m" }} 발간</p>
+        <h3><a href="{{ top_report.url | relative_url }}">{{ top_report.title }}</a></h3>
+        {% if top_file.description %}<p>{{ top_file.description }}</p>{% endif %}
+        {% if top_file %}
+        <p><a class="text-link" href="{{ top_file.url | relative_url }}" download aria-label="{{ top_report.title }} PDF 내려받기">PDF 내려받기</a></p>
+        {% endif %}
+      </div>
+      {% endif %}
+      <h2>
+        최근 소식
+        <a href="{{ '/news/' | relative_url }}" aria-label="센터 소식 전체 보기">전체 보기</a>
+      </h2>
+      <ul class="mini-list">
+        {% for post in latest_news limit: 3 %}
+        <li>
+          <a href="{{ post.url | relative_url }}">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }} · {{ post.category }}</time>
+            <strong>{{ post.title }}</strong>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 </section>
@@ -100,71 +96,92 @@ inc rsi</span>
 <section class="section">
   <div class="site-shell">
     <div class="section__heading">
-      <p class="eyebrow">About the Center</p>
-      <h2>센터 소개</h2>
-      <p>아래와 같은 활동을 중점으로 진행하고 있습니다.</p>
-    </div>
-    <div class="editorial-grid">
-      <article class="editorial-block">
-        <h3>실무 중심 연구</h3>
-        <p>악성코드 샘플 수집부터 리버스 엔지니어링, 대응 방안 수립까지 실제 분석 흐름을 중심으로 연구합니다.</p>
-      </article>
-      <article class="editorial-block">
-        <h3>사이버 범죄 추적</h3>
-        <p>침해사고 발생 시 해커 그룹과 범죄 행위를 신속히 추적할 수 있는 분석 역량을 강화합니다.</p>
-      </article>
-      <article class="editorial-block">
-        <h3>기관 협력 네트워크</h3>
-        <p>국내외 유관기관과의 협력 및 정보 공유를 통해 실무 능력 향상과 공동 대응 기반을 구축합니다.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section section--band">
-  <div class="site-shell">
-    <div class="section__heading section__heading--split">
-      <div>
-        <p class="eyebrow">Core Research</p>
-        <h2>주요 연구 분야</h2>
-      </div>
-      <p>다음과 같이 주요 연구 분야를 설정한 후, 다양한 연구를 진행하고 있습니다.</p>
+      <h2>주요 연구 분야</h2>
     </div>
     <div class="focus-list">
       {% for area in site.data.site.research_areas %}
       <article class="focus-item">
-        <span class="focus-item__index">0{{ forloop.index }}</span>
-        <div>
-          <h3>{{ area.title }}</h3>
-          <p>{{ area.description }}</p>
-        </div>
+        <h3>{{ area.title }}</h3>
+        <p>{{ area.description }}</p>
       </article>
       {% endfor %}
     </div>
   </div>
 </section>
 
+<section class="section section--dark">
+  <div class="site-shell">
+    <div class="section__heading section__heading--split">
+      <div>
+        <h2>발간 보고서</h2>
+        <p>2022년부터 반기마다 발간합니다. PDF 원문을 그대로 올립니다.</p>
+      </div>
+      <a class="text-link" href="{{ '/blog/' | relative_url }}">보고서 전체 보기</a>
+    </div>
+    {% if reports.size > 0 %}
+    <div class="report-list">
+      {% for post in reports %}
+      {% assign file = post.attachments | first %}
+      <article class="report-item">
+        <p class="report-item__year"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m" }}</time> 발간</p>
+        <div class="report-item__body">
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <p>{% if file.description %}{{ file.description }}{% else %}{{ post.excerpt | strip_html | truncate: 150 }}{% endif %}</p>
+        </div>
+        <p class="report-item__action">
+          {% if file %}
+          <a class="text-link" href="{{ file.url | relative_url }}" download aria-label="{{ post.title }} PDF 내려받기">PDF 내려받기</a>
+          {% else %}
+          <a class="text-link" href="{{ post.url | relative_url }}">본문 보기</a>
+          {% endif %}
+        </p>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">아직 공개된 보고서가 없습니다.</p>
+    {% endif %}
+  </div>
+</section>
+
 <section class="section">
   <div class="site-shell">
     <div class="section__heading section__heading--split">
       <div>
-        <p class="eyebrow">Latest News</p>
-        <h2>최근 센터 소식</h2>
+        <h2>수행 프로젝트</h2>
+        <p>기수별 분석 도구와 탐지 모델, 그리고 매년 운영하는 신입 교육 과정.</p>
       </div>
-      <a class="text-link" href="{{ '/news/' | relative_url }}">전체 소식 보기</a>
+      <a class="text-link" href="{{ '/projects/' | relative_url }}">프로젝트 전체 보기</a>
     </div>
+    <div class="project-list">
+      {% for item in projects limit: 6 %}
+      {% include project-row.html item=item %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tinted">
+  <div class="site-shell">
+    <div class="section__heading section__heading--split">
+      <div>
+        <h2>센터 블로그</h2>
+      </div>
+      <a class="text-link" href="{{ '/blog/' | relative_url }}">블로그 전체 보기</a>
+    </div>
+    {% comment %} 3열 격자였을 때 국문 줄당 18자로 끊겨 읽기 리듬이 깨졌다.
+       사이트의 다른 목록과 같은 하한선 행으로 통일한다. {% endcomment %}
     <div class="archive-list">
-      {% assign latest_news = site.news | sort: "date" | reverse | slice: 0, 2 %}
-      {% for post in latest_news %}
+      {% for post in latest_blog limit: 3 %}
       <article class="archive-item">
         <div class="archive-item__date">
           <span>{{ post.date | date: "%Y" }}</span>
           <strong>{{ post.date | date: "%m.%d" }}</strong>
         </div>
         <div class="archive-item__body">
-          <p class="meta">{{ post.category }}</p>
+          <p class="meta">{{ post.topic }}</p>
           <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-          <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
+          <p>{{ post.excerpt | strip_html | truncate: 150 }}</p>
         </div>
       </article>
       {% endfor %}
@@ -176,50 +193,58 @@ inc rsi</span>
   <div class="site-shell">
     <div class="section__heading section__heading--split">
       <div>
-        <p class="eyebrow">CSRC Weblog</p>
-        <h2>센터 블로그</h2>
+        <h2>연구원 진로</h2>
+        <p>14기부터 22기까지, 센터를 거쳐 나간 연구원이 어디로 갔는지입니다.</p>
       </div>
-      <a class="text-link" href="{{ '/blog/' | relative_url }}">블로그 전체 보기</a>
+      <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 현황 보기</a>
     </div>
-    <div class="blog-teasers">
-      {% assign latest_blog = site.blog | sort: "date" | reverse | slice: 0, 2 %}
-      {% for post in latest_blog %}
-      <article class="blog-teaser">
-        <p class="meta">{{ post.date | date: "%Y.%m.%d" }} · {{ post.topic }}</p>
-        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        <p>{{ post.excerpt | strip_html | truncate: 150 }}</p>
-      </article>
-      {% endfor %}
+    <div class="table-scroll">
+      <table class="outcome-table">
+        <caption class="visually-hidden">기수별 졸업 및 진출 연구원 기록</caption>
+        <thead>
+          <tr>
+            <th scope="col">기수</th>
+            <th scope="col">이름</th>
+            <th scope="col">진학 및 진출</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for person in alumni limit: 6 %}
+          {% assign detail = site.people | where: "slug", person.slug | first %}
+          <tr>
+            <td>{{ person.generation }}기</td>
+            <td>
+              {% if detail %}<a href="{{ detail.url | relative_url }}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}
+            </td>
+            <td>{{ person.outcome }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section section--tinted">
   <div class="site-shell">
     <div class="section__heading">
-      <p class="eyebrow">Center Overview</p>
       <h2>센터 현황</h2>
     </div>
-    <div class="link-panels link-panels--wide">
-      <article class="link-panel">
-        <h3>센터 프로젝트</h3>
-        <p>센터에서 수행 중인 프로젝트와 연구 결과, 산출물를 확인할 수 있습니다.</p>
-        <a class="text-link" href="{{ '/projects/' | relative_url }}">프로젝트 페이지 이동</a>
-      </article>
+    <div class="link-panels">
       <article class="link-panel">
         <h3>센터 인프라</h3>
-        <p>센터가 운영 중인 NAS, 서버, 공용 서비스 등 연구 지원 인프라 구성을 소개합니다.</p>
-        <a class="text-link" href="{{ '/infrastructure/' | relative_url }}">인프라 페이지 이동</a>
+        <p>NAS, 분석 서버, 내부 Wiki.</p>
+        <a class="text-link" href="{{ '/infrastructure/' | relative_url }}">인프라 보기</a>
       </article>
       <article class="link-panel">
         <h3>연구원 현황</h3>
-        <p>현재 활동 중인 연구원과 센터를 거쳐간 연구원의 진학 및 진출 현황을 소개합니다.</p>
-        <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 페이지 이동</a>
+        <p>현재 연구원 {{ site.data.researchers.current | size }}명, 졸업·진출 연구원 {{ alumni | size }}명.</p>
+        <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 보기</a>
       </article>
       <article class="link-panel">
         <h3>센터 연혁</h3>
-        <p>설립 배경과 주요 협약, 활동, 연도별 성과를 타임라인으로 확인하실 수 있습니다.</p>
-        <a class="text-link" href="{{ '/history/' | relative_url }}">연혁 페이지 이동</a>
+        <p>2013년 설립부터 지금까지.</p>
+        <a class="text-link" href="{{ '/history/' | relative_url }}">연혁 보기</a>
       </article>
     </div>
   </div>
