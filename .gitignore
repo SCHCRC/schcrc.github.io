@@ -9,3 +9,6 @@ _site/
 .bundle/
 vendor/bundle/
 vendor/bundle-arm/
+
+# Impeccable 스킬 작업 로그 (결정 페이지 응답 등)
+.impeccable/
