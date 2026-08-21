@@ -12,3 +12,6 @@ vendor/bundle-arm/
 
 # Impeccable 스킬 작업 로그 (결정 페이지 응답 등)
 .impeccable/
+
+# 로컬 개발 편의 설정 (launch.json 등)
+.claude/

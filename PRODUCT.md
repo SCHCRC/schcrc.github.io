@@ -33,7 +33,7 @@ web
 - 컬렉션: `news`(센터 소식), `blog`(센터 블로그), `people`(연구원 상세), `project_pages`(프로젝트 상세).
 - 데이터 파일: `researchers.yml`, `history.yml`, `infrastructure.yml`, `site.yml`. 프로젝트는 `_project_pages/*.md` 가 유일한 원본이며 별도 데이터 파일을 두지 않는다.
 - 게시글 front matter 지원: `cover_image`, `cover_image_alt`, `cover_image_caption`, `attachments[]`(label/url/description/download).
-- 플러그인은 GitHub Pages 호환 범위(`jekyll-feed`, `jekyll-seo-tag`)로 제한. 커스텀 Ruby 플러그인 불가.
+- 플러그인은 GitHub Pages 호환 범위(`jekyll-feed`, `jekyll-seo-tag`, `jekyll-sitemap`)로 제한. 커스텀 Ruby 플러그인 불가.
 - 빌드 툴체인 없음(번들러/PostCSS 없음). SCSS는 Jekyll 내장 sass-embedded로만 컴파일.
 - 언어는 한국어 단일(`ko-KR`). i18n 요구 없음.
 - 인프라 페이지의 실제 URL은 아직 비어 있음(`url: ""`). 접근 권한은 각 서비스가 처리한다는 전제.
@@ -42,7 +42,7 @@ web
 
 - 정식 명칭: `SCH사이버보안연구센터` / 영문 `SCH Cybersecurity Research Center`.
 - 기존 자산: `assets/branding/center-logo.png`, `assets/branding/logo.png`, `assets/favicon/`.
-- 소속 표기: 순천향대학교 산학협력단 산하, 공과대학 9332호. 센터장 엄홍열 교수.
+- 소속 표기: 순천향대학교 산학협력단 산하, 공과대학 9332호. 센터장 순천향대학교 정보보호학과 염흥열 교수.
 - 주소: [31538] 충남 아산시 순천향로 22-3 공과대학 9332 (이전 사이트 기재값).
 - 톤: 기관·학술 신뢰형. 절제되고 정확한 어조. 과장된 마케팅 문구 금지.
 - **시각 방향 (2026-08-21 확정, 지속 선호)**: 다크 기술 지면. 네이비 계열 근검정 + 로고 크림슨 하나 + 실제 데이터에만 모노스페이스. 비유적 세계관이나 아이러니는 쓰지 않는다.

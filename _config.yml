@@ -60,6 +60,7 @@ defaults:
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 # jekyll-feed 는 기본으로 site.posts 를 봅니다. 이 사이트는 _posts 가 없고
 # 커스텀 컬렉션만 쓰므로 명시하지 않으면 빈 feed.xml 이 나옵니다.
@@ -77,6 +78,7 @@ exclude:
   - UPDATE_GUIDELINES.md
   - QUICK_START_FOR_RESEARCHERS.md
   - .impeccable
+  - tools
   - vendor
   - vendor/bundle
   - vendor/bundle-arm

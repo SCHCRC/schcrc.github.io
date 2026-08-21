@@ -52,7 +52,7 @@ jobs:
         # 깨진 링크, 없는 첨부파일, 헤딩 계층, 편집자용 자리표시 문구,
         # researchers.yml 과 _people 의 불일치 등을 검사합니다.
         # 실패하면 배포하지 않습니다. 규칙은 UPDATE_GUIDELINES.md 9절 참조.
-        run: python3 tools/verify.py
+        run: python3 tools/verify.py --baseurl "${{ steps.pages.outputs.base_path }}"
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3

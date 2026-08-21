@@ -41,7 +41,7 @@ permalink: /
       <dl class="hero__facts">
         <div>
           <dt>센터장</dt>
-          <dd>엄홍열 교수</dd>
+          <dd>염흥열 교수</dd>
         </div>
         <div>
           <dt>설립</dt>

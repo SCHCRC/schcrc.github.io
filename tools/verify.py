@@ -7,6 +7,12 @@
     bundle exec jekyll build
     python3 tools/verify.py
 
+baseurl 을 붙여 빌드했다면 검사기에도 같은 값을 넘깁니다. 넘기지 않으면
+접두어가 붙은 모든 링크를 깨진 링크로 잡습니다.
+
+    bundle exec jekyll build --baseurl /testrepo
+    python3 tools/verify.py --baseurl /testrepo
+
 빌드 산출물(_site)과 소스를 함께 보고, 실패 항목이 있으면 종료 코드 1을 반환합니다.
 CI 에서 쓰려면 그대로 실행하면 됩니다.
 """
@@ -21,6 +27,26 @@ import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "_site")
+
+
+def parse_baseurl() -> str:
+    """`--baseurl /foo` 또는 `--baseurl=/foo` 를 읽습니다.
+
+    CI 는 `jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"` 로
+    빌드하므로, 프로젝트 페이지로 옮기면 모든 링크에 접두어가 붙습니다.
+    검사기가 이 값을 모르면 정상 링크를 전부 깨졌다고 보고합니다.
+    """
+    args = sys.argv[1:]
+    value = ""
+    for i, arg in enumerate(args):
+        if arg == "--baseurl" and i + 1 < len(args):
+            value = args[i + 1]
+        elif arg.startswith("--baseurl="):
+            value = arg.split("=", 1)[1]
+    return "/" + value.strip("/") if value.strip("/") else ""
+
+
+BASEURL = parse_baseurl()
 
 # 방문자에게 보여선 안 되는 편집자용 자리표시 문구.
 # 콘텐츠에 이런 문구가 들어가면 템플릿을 그대로 배포한 것처럼 읽힙니다.
@@ -73,6 +99,14 @@ def check_links() -> None:
         rel = p[len(SITE) :]
         for m in re.finditer(r'(?:href|src)="(/[^"#?]*)"', read(p)):
             url = urllib.parse.unquote(m.group(1))
+            if BASEURL:
+                # baseurl 이 있는데 접두어가 없으면 relative_url 을 빼먹은 것.
+                # 루트 도메인에서는 우연히 동작하고 프로젝트 페이지에서만 깨집니다.
+                if url == BASEURL or url.startswith(BASEURL + "/"):
+                    url = url[len(BASEURL) :] or "/"
+                else:
+                    fail(f"baseurl 접두어 없는 절대 경로: {url}  (출처 {rel}, relative_url 누락)")
+                    continue
             target = os.path.join(SITE, url.lstrip("/"))
             if url.endswith("/"):
                 target = os.path.join(target, "index.html")

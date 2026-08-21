@@ -10,7 +10,7 @@ GitHub Pages에서 바로 쓰기 쉽도록 **Jekyll + Markdown** 구조로 구�
 
 ## 현재 사이트 구조 요약
 
-- 정적 사이트 엔진: Jekyll 4.3 (GitHub Pages 호환 플러그인만: `jekyll-feed`, `jekyll-seo-tag`)
+- 정적 사이트 엔진: Jekyll 4.3 (GitHub Pages 호환 플러그인만: `jekyll-feed`, `jekyll-seo-tag`, `jekyll-sitemap`)
 - 콘텐츠: Markdown + YAML 데이터 파일. 빌드 툴체인 없음
 - 공통 레이아웃: `_layouts/` (default / post / project / researcher)
 - 공통 파셜: `_includes/project-row.html`
@@ -18,6 +18,7 @@ GitHub Pages에서 바로 쓰기 쉽도록 **Jekyll + Markdown** 구조로 구�
 - 스크립트: `assets/js/site.js` — 모바일 메뉴 + 스크롤 상태 (2.6KB)
 - 릴리스 검사기: `tools/verify.py` (의존성 없음, CI 에서도 실행)
 - 피드: `/feed/blog.xml`, `/feed/news.xml` (`jekyll-feed` 의 `feed.collections` 설정)
+- 사이트맵: `/sitemap.xml`, `/robots.txt` (`jekyll-sitemap` 이 자동 생성)
 
 문서 세 개가 서로 다른 층을 담당합니다.
 

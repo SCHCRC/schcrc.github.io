@@ -24,7 +24,7 @@ alumni:
   - name: 김동언
     slug: dongeon-kim
     generation: 14
-    outcome: BoB 12기 WhiteHat 10 선정, 2024 충청권 사이버보안 경진대회 우수상, 금융보안 아카데미 2024 장려상 등 다수 성과를 달성했습니다.
+    outcome: 2025 TEAM NAVER 신입 공채에 합격했습니다. BoB 12기 WhiteHat 10에 선발되고 경진대회에서 여러 차례 입상했습니다.
   - name: 서성환
     slug: seonghwan-seo
     generation: 15
@@ -56,7 +56,7 @@ alumni:
   - name: 송훈석
     slug: hunseok-song
     generation: 20
-    outcome: 고려대학교 정보보호대학원 석사 진학 및 2024 KDFS 챌린지 학생트랙 대상·장려상을 달성했습니다.
+    outcome: 고려대학교 정보보호대학원 석사 과정에 진학했고, BoB 13기 디지털 포렌식 트랙과 2024 KDFS 챌린지 학생트랙 대상·장려상을 거쳤습니다.
   - name: 장원식
     slug: wonsik-jang
     generation: 21
@@ -64,8 +64,8 @@ alumni:
   - name: 김민수
     slug: minsu-kim
     generation: 21
-    outcome: "-"
+    outcome: BoB 13기 디지털 포렌식 트랙에 합격했습니다.
   - name: 임수환
     slug: suwhan-lim
     generation: 22
-    outcome: AhnLab ASEC 분석팀으로 진출했습니다.
+    outcome: AhnLab ASEC 분석팀으로 진출했습니다. BoB 14기 디지털 포렌식 트랙과 K-Shield Jr. 14기 우수 인증생을 거쳤습니다.

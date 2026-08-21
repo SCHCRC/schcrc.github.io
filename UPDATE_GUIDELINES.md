@@ -260,7 +260,9 @@ GitHub Pages 가 `main` 브랜치에서 빌드합니다.
 - `_site/` 는 빌드 산출물이라 커밋 대상이 아닙니다. `.gitignore` 에 있지만 과거에 커밋된 이력이 있어 `git rm -r --cached _site` 로 정리해야 완전히 빠집니다.
 - 배포는 `.github/workflows/jekyll.yml` 이 처리합니다(Ruby 3.1, Actions 기반). 빌드 직후 `tools/verify.py` 가 실행되고 실패하면 배포되지 않습니다.
 - 피드는 `_config.yml` 의 `feed.collections` 로 `/feed/blog.xml`, `/feed/news.xml` 을 만듭니다. `jekyll-feed` 는 기본으로 `site.posts` 만 보므로 이 설정이 없으면 빈 피드가 나갑니다. 컬렉션을 추가하면 여기도 추가하세요.
-- **사이트맵은 아직 없습니다.** `jekyll-sitemap` gem 을 추가하면 됩니다(`Gemfile` + `_config.yml` plugins). 다만 `Gemfile.lock` 이 Bundler 1.17 로 생성돼 있어, gem 을 추가할 때는 로컬에서 `bundle install` 로 lock 을 갱신한 뒤 함께 커밋하세요.
+- 사이트맵은 `jekyll-sitemap` 이 `/sitemap.xml` 과 `/robots.txt` 를 자동으로 만듭니다. 페이지나 컬렉션을 추가해도 따로 할 일은 없습니다. 특정 페이지를 빼려면 그 페이지 front matter 에 `sitemap: false` 를 넣습니다.
+- gem 을 새로 추가할 때는 `Gemfile.lock` 이 Bundler 1.17 로 생성돼 있으므로, 로컬에서 `bundle install` 로 lock 을 갱신한 뒤 함께 커밋하세요. CI 는 `bundle install` 을 캐시와 함께 다시 돕니다.
+- `tools/` 는 `_config.yml` 의 `exclude` 에 있습니다. 검사 스크립트가 방문자에게 배포되지 않게 하는 설정이니 빼지 마세요.
 - CSS 안의 이미지 경로는 `relative_url` 을 씁니다. 절대경로로 적으면 프로젝트 페이지(baseurl 이 있는 경우)로 배포할 때 히어로 배경이 깨집니다.
 
 ### 이전 사이트 URL
