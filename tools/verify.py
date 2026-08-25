@@ -218,7 +218,9 @@ def check_researcher_consistency() -> None:
         return
     current_block, alumni_block = text.split("alumni:", 1)
 
-    entry = re.compile(r"- name:\s*(\S+)\s*\n\s+slug:\s*(\S+)\s*\n\s+generation:\s*(\d+)")
+    # generation 은 비워 둘 수 있습니다(기수 확인 불가). 값을 요구하면 그 항목이
+    # 검사에서 통째로 빠져, 나중에 _people 페이지를 만들 때 엉뚱한 실패가 납니다.
+    entry = re.compile(r"- name:\s*(\S+)\s*\n\s+slug:\s*(\S+)\s*\n\s+generation:[ \t]*(\d*)")
 
     def parse(block: str, label: str) -> dict[str, str]:
         """slug -> (name, generation). 같은 slug 가 두 번 나오면 잡습니다.
@@ -253,6 +255,8 @@ def check_researcher_consistency() -> None:
     else:
         for label, group in (("current", current), ("alumni", alumni)):
             for slug, (name, gen) in group.items():
+                if not gen:
+                    continue  # 기수 확인 불가. 범위 검사 대상이 아닙니다.
                 if int(gen) < first_gen:
                     fail(
                         f"researchers.yml {label}: {name}({slug}) 의 기수 {gen} 가 "
@@ -282,7 +286,13 @@ def check_researcher_consistency() -> None:
             fail(f"{base}: slug '{slug}' 가 researchers.yml 에 없습니다. 목록에서 상세로 연결되지 않습니다.")
             continue
 
-        if gen != want_gen:
+        if not want_gen:
+            if gen:
+                fail(
+                    f"{base}: researchers.yml 은 '{slug}' 를 기수 미확인으로 두었는데 "
+                    f"_people 에는 {gen} 이 있습니다. 확인된 기수라면 researchers.yml 에도 넣으세요."
+                )
+        elif gen != want_gen:
             fail(f"{base}: 기수 불일치 (_people {gen} vs researchers.yml {want_gen})")
         if status != want_status:
             fail(f'{base}: 구분 불일치 (_people "{status}" vs researchers.yml 기준 "{want_status}")')

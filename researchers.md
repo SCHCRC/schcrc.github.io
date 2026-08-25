@@ -53,12 +53,14 @@ permalink: /researchers/
          기수 숫자를 직접 적지 않고 데이터에서 계산해, 이전 기수를 채워 넣으면
          이 안내가 저절로 사라진다. {% endcomment %}
       {% assign first_gen = site.data.site.center.first_generation %}
-      {% assign alu_sorted = site.data.researchers.alumni | sort: "generation" %}
-      {% assign alu_min = alu_sorted | first %}
-      {% assign alu_max = alu_sorted | last %}
-      <p>{% if alu_min.generation > first_gen %}{{ first_gen }}기부터 이어진 명단을 순차적으로 채우고 있습니다. 지금은 {{ alu_min.generation }}기부터 {{ alu_max.generation }}기까지 정리되어 있습니다. {% endif %}진로 기록이 비어 있는 항목은 이전 홈페이지 명단에서 이관한 연구원입니다.</p>
+      {% assign alu_known = site.data.researchers.alumni | where_exp: "p", "p.generation" | sort: "generation" %}
+      {% assign alu_unknown = site.data.researchers.alumni | where_exp: "p", "p.generation == nil" %}
+      {% assign alu_min = alu_known | first %}
+      {% if alu_min.generation > first_gen %}
+      <p>지금 정리된 것은 {{ alu_min.generation }}기 이후입니다. {{ first_gen }}기까지 거슬러 채우는 중입니다.</p>
+      {% endif %}
     </div>
-    {% assign alumni = alu_sorted | reverse %}
+    {% assign alumni = alu_known | reverse %}
     <div class="table-scroll">
       <table class="outcome-table">
         <caption class="visually-hidden">기수별 졸업 및 진출 연구원 기록</caption>
@@ -73,7 +75,16 @@ permalink: /researchers/
           {% for person in alumni %}
           {% assign detail = site.people | where: "slug", person.slug | first %}
           <tr>
-            <td>{{ person.generation }}기</td>
+            <td>{% if person.generation %}{{ person.generation }}기{% else %}-{% endif %}</td>
+            <td>{% if detail %}<a href="{{ detail.url | relative_url }}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}</td>
+            <td>{{ person.outcome }}</td>
+          </tr>
+          {% endfor %}
+          {% comment %} 기수를 확인할 수 없는 연구원은 정렬 기준이 없으니 끝에 둔다. {% endcomment %}
+          {% for person in alu_unknown %}
+          {% assign detail = site.people | where: "slug", person.slug | first %}
+          <tr>
+            <td>-</td>
             <td>{% if detail %}<a href="{{ detail.url | relative_url }}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}</td>
             <td>{{ person.outcome }}</td>
           </tr>

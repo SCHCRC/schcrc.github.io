@@ -9,16 +9,19 @@ permalink: /
 {% assign latest_news = site.news | sort: "date" | reverse %}
 {% assign projects = site.project_pages | sort: "date" | reverse %}
 {% assign latest_blog = site.blog | sort: "date" | reverse %}
-{% assign alumni = site.data.researchers.alumni | sort: "generation" | reverse %}
+{% assign alumni_unknown = site.data.researchers.alumni | where_exp: "p", "p.generation == nil" %}
+{% assign alumni = site.data.researchers.alumni | where_exp: "p", "p.generation" | sort: "generation" | reverse %}
 
 {% comment %} 기수 숫자를 문구에 직접 적지 않는다. 센터는 1기부터인데 명단은
    14기 이후만 정리돼 있어, "14기부터"가 총계처럼 읽히는 문제가 있었다.
    범위를 데이터에서 계산하면 이전 기수를 채워 넣을 때 문구가 저절로 맞는다. {% endcomment %}
 {% assign first_gen = site.data.site.center.first_generation %}
 {% assign cur_sorted = site.data.researchers.current | sort: "generation" %}
-{% assign alu_sorted = site.data.researchers.alumni | sort: "generation" %}
-{% assign alu_min = alu_sorted | first %}
-{% assign alu_max = alu_sorted | last %}
+{% comment %} 기수를 확인할 수 없는 연구원이 있다. nil 이 섞이면 sort 결과의
+   양 끝이 엉키므로, 범위 계산은 기수가 있는 항목만으로 한다. {% endcomment %}
+{% assign alu_known = site.data.researchers.alumni | where_exp: "p", "p.generation" | sort: "generation" %}
+{% assign alu_min = alu_known | first %}
+{% assign alu_max = alu_known | last %}
 {% assign cur_max = cur_sorted | last %}
 {% assign latest_gen = cur_max.generation %}
 {% if alu_max.generation > latest_gen %}{% assign latest_gen = alu_max.generation %}{% endif %}
@@ -163,7 +166,7 @@ permalink: /
     <div class="section__heading section__heading--split">
       <div>
         <h2>수행 프로젝트</h2>
-        <p>기수별 분석 도구와 탐지 모델, 그리고 매년 운영하는 신입 교육 과정.</p>
+        <p>기수별 분석 도구와 탐지 모델, 매년 운영하는 신입 교육 과정.</p>
       </div>
       <a class="text-link" href="{{ '/projects/' | relative_url }}">프로젝트 전체 보기</a>
     </div>
@@ -208,7 +211,7 @@ permalink: /
     <div class="section__heading section__heading--split">
       <div>
         <h2>연구원 진로</h2>
-        <p>센터를 거쳐 나간 연구원이 어디로 갔는지입니다. {% if roster_partial %}지금은 {{ alu_min.generation }}기부터 {{ alu_max.generation }}기까지 정리되어 있고, 이전 기수는 순차적으로 채우고 있습니다.{% else %}{{ alu_min.generation }}기부터 {{ alu_max.generation }}기까지 기록했습니다.{% endif %}</p>
+        <p>센터를 거쳐 나간 연구원이 어디로 갔는지입니다.{% if roster_partial %} 지금 정리된 것은 {{ alu_min.generation }}기 이후입니다.{% endif %}</p>
       </div>
       <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 현황 보기</a>
     </div>
@@ -226,7 +229,7 @@ permalink: /
           {% for person in alumni limit: 6 %}
           {% assign detail = site.people | where: "slug", person.slug | first %}
           <tr>
-            <td>{{ person.generation }}기</td>
+            <td>{% if person.generation %}{{ person.generation }}기{% else %}-{% endif %}</td>
             <td>
               {% if detail %}<a href="{{ detail.url | relative_url }}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}
             </td>
@@ -252,7 +255,7 @@ permalink: /
       </article>
       <article class="link-panel">
         <h3>연구원 현황</h3>
-        <p>현재 연구원 {{ site.data.researchers.current | size }}명, 명단이 정리된 졸업·진출 연구원 {{ alumni | size }}명.</p>
+        <p>현재 연구원 {{ site.data.researchers.current | size }}명, 명단이 정리된 졸업·진출 연구원 {{ site.data.researchers.alumni | size }}명.</p>
         <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 보기</a>
       </article>
       <article class="link-panel">

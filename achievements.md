@@ -15,11 +15,7 @@ permalink: /achievements/
   <div class="site-shell">
     <h1>센터 실적</h1>
     {% comment %} 요약을 별도 섹션으로 두면 한 문장이 밴드 하나를 다 쓴다. 리드에 붙인다. {% endcomment %}
-    <p>
-      연구원이 받은 상, 선발된 프로그램, 나간 곳입니다.
-      수상 {{ awards.size }}건, 프로그램 선발 {{ picks.size }}건, 진출 {{ jobs.size }}건, 진학 {{ grads.size }}건.
-      매 학기 만드는 센터 소개 발표자료에 적힌 것만 옮겼습니다.
-    </p>
+    <p>수상 {{ awards.size }}건, 프로그램 선발 {{ picks.size }}건, 진출 {{ jobs.size }}건, 진학 {{ grads.size }}건.</p>
   </div>
 </section>
 

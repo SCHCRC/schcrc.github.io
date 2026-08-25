@@ -7,7 +7,7 @@ permalink: /projects/
 <section class="page-hero">
   <div class="site-shell">
     <h1>센터 프로젝트</h1>
-    <p>기수별 분석 도구와 탐지 모델, 신입 교육 과정. 이전 홈페이지에서 이관한 프로젝트도 함께 있습니다.</p>
+    <p>기수별 분석 도구와 탐지 모델, 신입 교육 과정.</p>
   </div>
 </section>
 

@@ -21,5 +21,3 @@ attachments:
 | Conti | Ransomware | 차현석 |
 | Hermetic | Wiper | 서성환 |
 | UA_WAR_RAT | RAT | 이익규 |
-
-보고서 PDF는 하단 첨부파일에서 다운로드할 수 있습니다.
