@@ -9,10 +9,4 @@ current_affiliation: AhnLab ASEC 분석팀
 specialties:
   - 디지털 포렌식
   - 공격 분석
-achievements:
-  - AhnLab ASEC 분석팀 진출
-  - BoB 14기 디지털 포렌식 트랙 합격
-  - K-Shield Jr. 14기 우수 인증생
-  - 호남 사이버보안컨퍼런스 침해대응 경진대회 우수상
-  - 2024 충청권 사이버보안 경진대회 우수상
 ---

@@ -8,6 +8,4 @@ description: 21기. 센터 활동 이후 AhnLab 분석팀에서 인턴으로 일
 current_affiliation: AhnLab 분석팀 인턴
 specialties:
   - 악성코드 분석
-achievements:
-  - AhnLab 분석팀 인턴
 ---

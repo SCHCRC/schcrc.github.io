@@ -9,6 +9,4 @@ current_affiliation: S2W 위협분석팀(BLKSMTH)
 specialties:
   - 위협분석
   - 인포스틸러 분석
-achievements:
-  - S2W 위협분석팀 진출
 ---

@@ -33,7 +33,7 @@ permalink: /achievements/
         <p class="report-item__year">{{ record.kind }}</p>
         <div class="report-item__body">
           <h3>{{ record.title }}</h3>
-          {% if record.org %}<p>{{ record.org }}</p>{% endif %}
+          {% if record.org %}{% unless record.title contains record.org %}<p>{{ record.org }}</p>{% endunless %}{% endif %}
         </div>
         <p class="report-item__action">
           {% for member in record.members %}

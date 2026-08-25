@@ -274,6 +274,12 @@ def check_researcher_consistency() -> None:
         slug, gen, status = field("slug"), field("generation"), field("status")
         if not field("title"):
             fail(f"{base}: title 이 없습니다. 없으면 브라우저 탭 제목이 영문 슬러그로 나옵니다.")
+        if re.search(r"^achievements:", s, re.M):
+            # 두 곳에 적어 두었을 때 같은 사건의 표기가 6건 갈렸습니다.
+            fail(
+                f"{base}: achievements 는 _people 에 적지 않습니다. "
+                f"_data/achievements.yml 에 넣으면 연구원 페이지에 자동으로 나옵니다."
+            )
         if slug is None:
             fail(f"{base}: slug 이 없습니다.")
             continue

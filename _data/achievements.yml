@@ -13,7 +13,7 @@
 
 - year: 2025
   kind: 진출
-  title: ASEC 분석팀 합격
+  title: AhnLab ASEC 분석팀 합격
   org: AhnLab
   members:
     - { name: 임수환, generation: 22, slug: suwhan-lim }
@@ -123,14 +123,14 @@
 
 - year: 2024
   kind: 진출
-  title: 위협분석팀(BLKSMTH) 진출
+  title: S2W 위협분석팀(BLKSMTH) 진출
   org: S2W
   members:
     - { name: 안병열, generation: 17, slug: byeongyeol-an }
 
 - year: 2024
   kind: 진출
-  title: 분석팀 인턴
+  title: AhnLab 분석팀 인턴
   org: AhnLab
   members:
     - { name: 장원식, generation: 21, slug: wonsik-jang }

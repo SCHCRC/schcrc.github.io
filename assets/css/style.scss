@@ -1880,6 +1880,20 @@ table {
   }
 }
 
+/* 상단 메뉴가 7개가 되면서 모바일 브레이크포인트(900px) 바로 위 구간에서
+   두 줄로 접혔다. 900px 블록에는 레이아웃 규칙이 섞여 있어 경계를 옮기는
+   대신, 이 구간에서만 항목 간격을 좁힌다. 터치 타깃 높이는 그대로다. */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .site-nav a {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .site-header__inner {
+    gap: 16px;
+  }
+}
+
 @media (max-width: 900px) {
   :root {
     --shell-pad: 20px;

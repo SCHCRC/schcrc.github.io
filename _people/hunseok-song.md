@@ -8,9 +8,4 @@ description: 20기. 2024 KDFS 챌린지 학생트랙에서 대상과 장려상�
 current_affiliation: 고려대학교 정보보호대학원 석사 과정
 specialties:
   - 디지털 포렌식
-achievements:
-  - 고려대학교 정보보호대학원 석사 진학
-  - BoB 13기 디지털 포렌식 트랙 합격
-  - 2024 KDFS 챌린지 학생트랙 대상
-  - 2024 KDFS 챌린지 학생트랙 장려상
 ---
