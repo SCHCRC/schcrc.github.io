@@ -1,5 +1,5 @@
 ---
-description: 순천향대학교 산학협력단 산하 SCH사이버보안연구센터. 학부 연구원이 랜섬웨어와 피싱 사이트를 직접 분석하고, 어느 공격 그룹의 수법인지까지 좇아 반기 보고서로 공개합니다.
+description: 순천향대학교 산학협력단 산하 SCH사이버보안연구센터. 학부 연구원이 랜섬웨어와 피싱 사이트를 직접 분석하고, 어느 공격 그룹의 수법인지까지 추적해 반기 보고서로 공개합니다.
 title: SCH사이버보안연구센터
 permalink: /
 ---
@@ -30,13 +30,12 @@ permalink: /
   <div class="site-shell hero__inner">
     <div class="hero__content">
       <h1>
-        <span class="hero__line"><span>악성코드부터 배후까지,</span></span>
-        <span class="hero__line"><span>분석해서 공개합니다</span></span>
+        <span class="hero__line"><span>악성코드부터 배후까지.</span></span>
         <span class="hero__en">SCH Cybersecurity Research Center</span>
       </h1>
       <p class="hero__lead">
         순천향대학교 산학협력단 산하 연구센터입니다. 학부 연구원이 랜섬웨어와 피싱 사이트를
-        직접 뜯어보고, 어느 공격 그룹의 수법인지까지 좇아 반기 보고서로 공개합니다.
+        직접 뜯어보고, 어느 공격 그룹의 수법인지까지 추적해 반기 보고서로 공개합니다.
       </p>
       {% comment %} 마감된 뒤에도 '모집 안내'를 주 버튼에 두면 열려 있는 것처럼 읽힌다. {% endcomment %}
       {% assign today = 'now' | date: '%Y%m%d' | plus: 0 %}
@@ -255,6 +254,11 @@ permalink: /
         <h3>연구원 현황</h3>
         <p>현재 연구원 {{ site.data.researchers.current | size }}명, 명단이 정리된 졸업·진출 연구원 {{ alumni | size }}명.</p>
         <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 보기</a>
+      </article>
+      <article class="link-panel">
+        <h3>센터 실적</h3>
+        <p>수상 {{ site.data.achievements | where: "kind", "수상" | size }}건, 선발·진출·진학 기록.</p>
+        <a class="text-link" href="{{ '/achievements/' | relative_url }}">실적 보기</a>
       </article>
       <article class="link-panel">
         <h3>센터 연혁</h3>

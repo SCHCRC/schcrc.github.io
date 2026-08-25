@@ -33,7 +33,7 @@
 | 분석 대상 | 5쪽 | `_data/site.yml`, `_blog/2026-03-10-research-areas.md` |
 | 악성코드 분석 프로세스 | 6쪽 | `_blog/2026-03-12-malware-analysis-process.md` |
 | 협약·워크숍 | 7~8쪽 | `_news/`, `_data/history.yml` |
-| 연구원 수상·진로 | 9~13쪽 | `_data/researchers.yml`, `_people/` |
+| 연구원 수상·진로 | 9~13쪽 | `_data/achievements.yml`, `_data/researchers.yml`, `_people/` |
 | 모집 조건·특전·기초교육 | 14쪽 | `_news/` 의 `category: 모집` 글 |
 
 **한 번 틀린 적 있는 것**: 센터장 이름을 "엄홍열"로 적어 배포 직전까지 갔습니다.
@@ -72,6 +72,7 @@ _data/
   history.yml            연혁
   infrastructure.yml     인프라 항목
   site.yml               연구 분야 3종, 센터 첫 기수(center.first_generation)
+  achievements.yml       센터 실적 (수상 / 선발 / 진출 / 진학)
 _news/                   센터 소식
 _blog/                   센터 블로그 (반기 보고서 포함)
 _project_pages/          프로젝트 (목록 + 상세의 유일한 원본)

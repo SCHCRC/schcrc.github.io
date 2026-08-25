@@ -17,6 +17,7 @@
 | 프로젝트 추가·수정 | `_project_pages/` 에 `.md` 새로 만들기 |
 | 연구원 명단 수정 | `_data/researchers.yml` |
 | 연구원 상세 페이지 | `_people/<slug>.md` |
+| 실적(수상·선발·진출·진학) 추가 | `_data/achievements.yml` |
 | 연혁 추가 | `_data/history.yml` |
 | 인프라 URL 등록 | `_data/infrastructure.yml` |
 | 연구 분야 문구 | `_data/site.yml` |
@@ -171,6 +172,24 @@ achievements:
 - `status` 는 `현재 연구원` 또는 `졸업 및 진출 연구원` 이며, `researchers.yml` 의 어느 섹션에 있는지와 **일치해야 합니다.** 어긋나면 검사기가 잡습니다.
 - `generation` 도 `researchers.yml` 값과 같아야 합니다.
 - 실적이 없으면 `achievements` 를 아예 빼세요.
+
+---
+
+## 5-1. 실적 추가 (`_data/achievements.yml`)
+
+```yml
+- year: 2026
+  kind: 수상            # 수상 | 선발 | 진출 | 진학
+  title: 대회 이름과 상 이름
+  org: 주최 기관
+  members:
+    - { name: 이름, generation: 27, slug: yeongmun-slug }
+```
+
+- `kind` 는 네 가지만 씁니다. 연도별로 묶여 자동 정렬됩니다.
+- `slug` 가 `_people` 에 있으면 이름에 상세 페이지 링크가 걸립니다. 없으면 이름만 나옵니다.
+- 같은 대회의 다른 해 수상은 별도 항목입니다. 예를 들어 호남 사이버보안컨퍼런스는 24년 최우수상과 25년 우수상이 다른 건입니다.
+- **발표자료에 없는 실적은 넣지 않습니다.** 상 이름과 기관명은 자료 표기 그대로 씁니다.
 
 ---
 

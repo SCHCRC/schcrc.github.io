@@ -109,12 +109,9 @@ layout: default
               <dd>{{ page.owner }}</dd>
             </div>
             {% endif %}
-            {% if page.archived_from %}
-            <div>
-              <dt>이관 출처</dt>
-              <dd>{{ page.archived_from }}</dd>
-            </div>
-            {% endif %}
+            {% comment %} archived_from 은 유지보수용 기록으로만 둔다.
+               "이관 출처: SCHCsRC.github.io" 는 방문자에게 의미가 없고
+               이전 사이트로 시선을 돌린다. {% endcomment %}
           </dl>
         </div>
 

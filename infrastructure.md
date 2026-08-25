@@ -15,7 +15,7 @@ permalink: /infrastructure/
   <div class="site-shell">
     <div class="section__heading">
       <h2>운영 구성</h2>
-      <p>접속 URL은 확정된 항목부터 등록합니다.</p>
+      <p>센터 연구에 쓰는 공용 자원입니다.</p>
     </div>
     {% if site.data.infrastructure.size > 0 %}
     <div class="resource-list">

@@ -7,7 +7,7 @@ permalink: /researchers/
 <section class="page-hero">
   <div class="site-shell">
     <h1>연구원 현황</h1>
-    <p>현재 연구원과, 센터를 거쳐 나간 연구원.</p>
+    <p>현재 연구원과 센터를 거쳐 나간 연구원.</p>
   </div>
 </section>
 

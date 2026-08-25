@@ -1,0 +1,136 @@
+# 센터 실적. 출처는 학기 센터 소개 발표자료(24년도 성과 9~11쪽, 25년도 성과 12~13쪽).
+# 자료에 없는 실적은 넣지 않습니다. UPDATE_GUIDELINES 1-1 절 참조.
+#
+# kind: 수상 | 선발 | 진출 | 진학
+# members[].slug 가 _people 에 있으면 이름에 상세 페이지 링크가 걸립니다.
+
+- year: 2025
+  kind: 진출
+  title: 2025 TEAM NAVER 신입 공채 합격
+  org: NAVER
+  members:
+    - { name: 김동언, generation: 14, slug: dongeon-kim }
+
+- year: 2025
+  kind: 진출
+  title: ASEC 분석팀 합격
+  org: AhnLab
+  members:
+    - { name: 임수환, generation: 22, slug: suwhan-lim }
+
+- year: 2025
+  kind: 수상
+  title: 금융보안 아카데미 2025 최우수상
+  org: 금융보안원
+  members:
+    - { name: 이창엽, generation: 25, slug: changyeop-lee }
+
+- year: 2025
+  kind: 수상
+  title: 호남 사이버보안컨퍼런스 침해대응 경진대회 우수상
+  org: KISA
+  members:
+    - { name: 임수환, generation: 22, slug: suwhan-lim }
+    - { name: 이창엽, generation: 25, slug: changyeop-lee }
+
+- year: 2025
+  kind: 수상
+  title: 제1회 영남권 사이버 공격 방어 대회(대학팀) 우수상
+  org: 한국주택금융공사
+  members:
+    - { name: 이창엽, generation: 25, slug: changyeop-lee }
+
+- year: 2025
+  kind: 선발
+  title: BoB 14기 디지털 포렌식 트랙 합격
+  org: 차세대 보안리더 양성 프로그램
+  members:
+    - { name: 임수환, generation: 22, slug: suwhan-lim }
+
+- year: 2025
+  kind: 선발
+  title: K-Shield Jr. 14기 우수 인증생
+  org: K-Shield Jr.
+  members:
+    - { name: 임수환, generation: 22, slug: suwhan-lim }
+
+- year: 2024
+  kind: 수상
+  title: 호남 사이버보안컨퍼런스 침해대응 경진대회 최우수상
+  org: 한전KDN
+  members:
+    - { name: 김동언, generation: 14, slug: dongeon-kim }
+    - { name: 김성훈, generation: 22, slug: seonghun-kim }
+
+- year: 2024
+  kind: 수상
+  title: 2024 KDFS 챌린지 학생트랙 대상 · 장려상
+  org: (사)한국디지털포렌식학회
+  members:
+    - { name: 김동언, generation: 14, slug: dongeon-kim }
+    - { name: 송훈석, generation: 20, slug: hunseok-song }
+
+- year: 2024
+  kind: 수상
+  title: 2024 충청권 사이버보안 경진대회 우수상
+  org: 한국보건산업진흥원
+  members:
+    - { name: 김동언, generation: 14, slug: dongeon-kim }
+    - { name: 임수환, generation: 22, slug: suwhan-lim }
+
+- year: 2024
+  kind: 수상
+  title: 금융보안 아카데미 2024 장려상
+  org: 금융보안원
+  members:
+    - { name: 김동언, generation: 14, slug: dongeon-kim }
+
+- year: 2024
+  kind: 수상
+  title: 제6회 TS 보안 허점을 찾아라! 장려상
+  org: 한국교통안전공단
+  members:
+    - { name: 김동언, generation: 14, slug: dongeon-kim }
+
+- year: 2024
+  kind: 선발
+  title: BoB 12기 WhiteHat 10 선정
+  org: 차세대 보안리더 양성 프로그램
+  members:
+    - { name: 김동언, generation: 14, slug: dongeon-kim }
+
+- year: 2024
+  kind: 선발
+  title: BoB 13기 디지털 포렌식 트랙 합격
+  org: 차세대 보안리더 양성 프로그램
+  members:
+    - { name: 송훈석, generation: 20, slug: hunseok-song }
+    - { name: 김민수, generation: 21, slug: minsu-kim }
+
+- year: 2024
+  kind: 진학
+  title: 고려대학교 정보보호대학원 석사 진학
+  org: 고려대학교
+  members:
+    - { name: 송훈석, generation: 20, slug: hunseok-song }
+
+- year: 2024
+  kind: 진학
+  title: MCL 연구실(이유식 교수님) 석사 진학
+  org: 순천향대학교
+  members:
+    - { name: 이수지, generation: 16, slug: suji-lee }
+
+- year: 2024
+  kind: 진출
+  title: 위협분석팀(BLKSMTH) 진출
+  org: S2W
+  members:
+    - { name: 안병열, generation: 17, slug: byeongyeol-an }
+
+- year: 2024
+  kind: 진출
+  title: 분석팀 인턴
+  org: AhnLab
+  members:
+    - { name: 장원식, generation: 21, slug: wonsik-jang }
