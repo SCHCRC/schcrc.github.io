@@ -270,6 +270,7 @@ python3 tools/verify.py
 - 편집자용 자리표시 문구 노출
 - `researchers.yml` ↔ `_people` 기수·구분 불일치
 - 프로젝트 필수 필드 누락, front matter 구분자 오류
+- 페이지별 meta description 누락·중복
 - `_config.yml` 의 `url` 누락 (canonical·og:url 이 깨집니다)
 
 **측정으로 확인한 것** (재현 방법은 DESIGN.md):

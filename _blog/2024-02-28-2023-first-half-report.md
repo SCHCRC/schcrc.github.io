@@ -1,4 +1,5 @@
 ---
+description: 2023년 상반기 악성코드 분석 보고서. GlobeImposter와 Lukitus 랜섬웨어, 드리덱스 봇넷으로 유포된 Vidar 인포스틸러를 분석했습니다.
 title: 2023 상반기 분석 보고서
 date: 2024-02-28
 author: 이수지

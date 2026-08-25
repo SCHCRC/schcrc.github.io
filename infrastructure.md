@@ -1,4 +1,5 @@
 ---
+description: SCH사이버보안연구센터가 연구에 쓰는 공용 NAS, 악성코드 분석 서버, 내부 Wiki 등 인프라 현황.
 title: 센터 인프라
 permalink: /infrastructure/
 ---

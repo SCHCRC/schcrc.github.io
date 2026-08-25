@@ -1,4 +1,5 @@
 ---
+description: 2022년 하반기 악성코드 분석 보고서. LockBit 3.0과 Vohuk, Black Basta 랜섬웨어, Raccoon Stealer 2.0과 AgentTesla, CryptBot 인포스틸러를 분석했습니다.
 title: 2022 하반기 분석 보고서
 date: 2022-12-29
 author: 이수지

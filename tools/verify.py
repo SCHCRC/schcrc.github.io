@@ -142,6 +142,35 @@ def check_structure() -> None:
             fail(f"빈 요소가 렌더됨: {rel}  (front matter 필드가 비었는지 확인)")
 
 
+# ----------------------------------------- 3-1. 페이지별 고유 meta description
+def check_meta_descriptions() -> None:
+    """같은 설명을 여러 페이지가 쓰면 검색 결과에서 서로 구분되지 않습니다.
+
+    jekyll-seo-tag 는 page.description 이 없으면 site.description 으로 대체하므로,
+    front matter 를 빼먹으면 조용히 전 페이지가 같은 문구를 갖게 됩니다.
+    _people 과 _project_pages 는 `description:` 필드가 본문 리드와 SEO 설명을
+    겸합니다. 이름을 `summary:` 로 되돌리면 이 검사가 잡습니다.
+    """
+    seen: dict[str, list[str]] = {}
+    for p in pages():
+        rel = p[len(SITE) :]
+        if rel.endswith("404.html"):
+            continue
+        m = re.search(r'<meta name="description" content="(.*?)"', read(p), re.S)
+        if not m:
+            fail(f"meta description 없음: {rel}")
+            continue
+        seen.setdefault(m.group(1).strip(), []).append(rel)
+
+    for desc, urls in seen.items():
+        if len(urls) > 1:
+            fail(
+                f"meta description 중복 ({len(urls)}개 페이지): "
+                f'"{desc[:40]}..."  {", ".join(urls[:3])}'
+                + (" 외" if len(urls) > 3 else "")
+            )
+
+
 # ------------------------------------------- 4. 편집자용 문구가 새어 나갔는지
 def check_editor_placeholders() -> None:
     for p in pages():
@@ -228,7 +257,7 @@ def check_projects() -> None:
         base = os.path.basename(path)
         if s.count("\n---") < 1 or not s.startswith("---"):
             fail(f"{base}: front matter 구분자가 잘못됐습니다. `---` 로 시작하고 `---` 로 닫아야 합니다.")
-        for key in ("title", "date", "slug", "status", "summary", "overview"):
+        for key in ("title", "date", "slug", "status", "description", "overview"):
             if not re.search(rf"^{key}:\s*\S", s, re.M):
                 fail(f"{base}: 필수 필드 '{key}' 가 없습니다.")
         # cover_image 존재 확인은 check_attachments() 가 front matter 기준으로 처리합니다.
@@ -285,6 +314,7 @@ def main() -> int:
 
     check_links()
     check_structure()
+    check_meta_descriptions()
     check_editor_placeholders()
     check_orphan_assets()
     check_researcher_consistency()

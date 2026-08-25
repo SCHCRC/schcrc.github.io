@@ -1,4 +1,5 @@
 ---
+description: 2022년 상반기 악성코드 분석 보고서. 콜로니얼 파이프라인 공격에 쓰인 DarkSide와 Conti, 우크라이나를 겨눈 Hermetic, UA_WAR_RAT을 분석했습니다.
 title: 2022 상반기 분석 보고서
 date: 2022-06-13
 author: 이수지

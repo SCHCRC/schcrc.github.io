@@ -1,4 +1,5 @@
 ---
+description: SCH사이버보안연구센터가 발간한 반기 악성코드 분석 보고서와 연구 기록. PDF 원문을 그대로 공개합니다.
 title: 센터 블로그
 permalink: /blog/
 ---

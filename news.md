@@ -1,4 +1,5 @@
 ---
+description: SCH사이버보안연구센터의 공지, 협약, 활동, 연구원 모집 소식.
 title: 센터 소식
 permalink: /news/
 ---

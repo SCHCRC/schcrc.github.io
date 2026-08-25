@@ -1,4 +1,5 @@
 ---
+description: SCH사이버보안연구센터의 현재 연구원과 졸업·진출 연구원 명단. 기수별 진학 및 진출 기록을 함께 정리했습니다.
 title: 연구원 현황
 permalink: /researchers/
 ---

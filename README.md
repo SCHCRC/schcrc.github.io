@@ -151,7 +151,7 @@ slug: project-slug        # URL: /projects/project-slug/
 status: 진행 중            # 배지로 표시됩니다.
 period: 2026
 owner: 담당 연구원
-summary: 목록 카드에 나오는 한두 문장 요약입니다.
+description: 목록 카드에 나오는 한두 문장 요약. 검색결과 설명으로도 그대로 쓰입니다.
 overview: 상세 페이지 개요 문단입니다.
 cover_image: /assets/uploads/projects/project-slug.png
 cover_image_alt: 대표 이미지 설명

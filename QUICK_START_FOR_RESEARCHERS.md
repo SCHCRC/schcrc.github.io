@@ -97,7 +97,7 @@ slug: project-slug
 status: 진행 중
 period: 2026
 owner: 담당 연구원
-summary: 목록에 한 줄로 나오는 요약.
+description: 목록에 한 줄로 나오는 요약. 검색결과 설명도 이걸 씁니다.
 overview: 상세 페이지 첫 문단.
 cover_image: /assets/uploads/projects/project-slug.png
 cover_image_alt: 이미지 설명
@@ -110,6 +110,7 @@ highlights:
 ```
 
 - **`---` 로 시작하고 `---` 로 닫아야 합니다.** 닫는 줄을 빼면 제목이 파일명(영문)으로 나옵니다.
+- `description` 은 목록 요약과 검색결과 설명을 겸합니다. 필드 이름을 `summary` 로 바꾸면 검색결과에 사이트 공통 문구가 나가고, 검사기가 잡습니다.
 - `status` 를 `진행 중` · `진행 예정` · `상시 운영` 로 적으면 배지가 크림슨, 그 외(`이전 기수 프로젝트` 등)는 회색입니다.
 - 정렬은 `date` 역순입니다.
 - `activities`, `outputs` 는 실제 내용이 있을 때만 넣습니다. 없으면 그 영역이 나오지 않습니다.
@@ -148,7 +149,7 @@ slug: yeongmun-slug
 generation: 27
 status: 현재 연구원
 role: 연구원
-summary: 27기 연구원. 무엇을 맡고 있는지 한 문장.
+description: 27기 연구원. 무엇을 맡고 있는지 한 문장. 검색결과 설명도 이걸 씁니다.
 current_focus: 악성코드 분석
 specialties:
   - 악성코드 분석
@@ -222,6 +223,7 @@ bundle exec jekyll build && python3 tools/verify.py
 - **"추가 예정" 같은 편집자용 문구가 방문자 화면에 노출**
 - `researchers.yml` 과 `_people` 의 기수·구분 불일치
 - 프로젝트 필수 필드 누락, front matter 구분자 오류
+- 페이지별 meta description 누락·중복
 
 ---
 
@@ -232,6 +234,7 @@ bundle exec jekyll build && python3 tools/verify.py
 | 제목이 영문 파일명으로 나옴 | front matter 닫는 `---` 누락, 또는 `_people` 에 `title` 없음 |
 | 목록에서 상세로 안 넘어감 | `slug` 불일치 |
 | 보고서가 홈에 안 뜸 | `topic: 분석 보고서` 가 아님 |
+| 검색결과 설명이 다 똑같음 | `description` 누락. 상위 페이지는 front matter 에 직접 넣습니다 |
 | 마감된 모집이 계속 뜸 | `closes` 없음 |
 | 빌드가 `Encoding::UndefinedConversionError` | 한글 파일명. 8번의 로케일 지정으로 실행 |
 | 화면이 예전 그대로 | 브라우저 캐시. `⌘⇧R` |

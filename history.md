@@ -1,4 +1,5 @@
 ---
+description: 2013년 설립부터 지금까지 SCH사이버보안연구센터가 지나온 연혁과 주요 성과.
 title: 센터 연혁
 permalink: /history/
 ---

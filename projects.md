@@ -1,4 +1,5 @@
 ---
+description: SCH사이버보안연구센터가 기수별로 수행한 악성코드 분석 도구, 탐지 모델, 침해대응 연구와 신입 교육 과정.
 title: 센터 프로젝트
 permalink: /projects/
 ---
