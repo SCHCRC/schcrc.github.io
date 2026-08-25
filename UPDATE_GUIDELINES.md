@@ -49,6 +49,15 @@
 회사를 명시하지 않았다면, 실적으로만 적고 "현재 소속"은 비웁니다. 로고를
 보고 회사를 추측해 채우지 마세요. 실제 인물의 경력입니다.
 
+**연구원 명단은 아직 완성이 아닙니다.** 센터는 1기부터인데 정리된 기록은
+14기 이후입니다. 그래서 어떤 문구도 기수 숫자나 인원수를 총계처럼 말하지
+않게 해 뒀습니다. 홈 첫 화면은 `center.first_generation` 과 `researchers.yml`
+을 비교해 범위를 계산하고, 아직 덜 채워졌으면 "이전 기수는 순차적으로 채우고
+있습니다"를 붙입니다. 1기가 들어오면 그 문장이 저절로 사라집니다.
+
+문구에 "14기부터" 같은 숫자를 다시 적어 넣지 마세요. 그렇게 하드코딩돼 있어
+13명이 배출 연구원 총계처럼 읽히던 것이 이 구조의 이유입니다.
+
 새 학기 자료를 받으면 위 표를 따라 한 항목씩 대조하고, 이 절의 기준 자료
 이름과 대조 시점을 갱신하세요.
 
@@ -62,7 +71,7 @@ _data/
   researchers.yml        연구원 명단 (current / alumni)
   history.yml            연혁
   infrastructure.yml     인프라 항목
-  site.yml               연구 분야 3종
+  site.yml               연구 분야 3종, 센터 첫 기수(center.first_generation)
 _news/                   센터 소식
 _blog/                   센터 블로그 (반기 보고서 포함)
 _project_pages/          프로젝트 (목록 + 상세의 유일한 원본)
@@ -271,6 +280,7 @@ python3 tools/verify.py
 - `researchers.yml` ↔ `_people` 기수·구분 불일치
 - 프로젝트 필수 필드 누락, front matter 구분자 오류
 - 페이지별 meta description 누락·중복
+- 연구원 slug 중복, current/alumni 양쪽 등장, 첫 기수보다 앞선 기수
 - `_config.yml` 의 `url` 누락 (canonical·og:url 이 깨집니다)
 
 **측정으로 확인한 것** (재현 방법은 DESIGN.md):

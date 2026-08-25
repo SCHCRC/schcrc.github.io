@@ -213,13 +213,46 @@ def check_researcher_consistency() -> None:
         return
     current_block, alumni_block = text.split("alumni:", 1)
 
-    def parse(block: str) -> dict[str, str]:
+    entry = re.compile(r"- name:\s*(\S+)\s*\n\s+slug:\s*(\S+)\s*\n\s+generation:\s*(\d+)")
+
+    def parse(block: str, label: str) -> dict[str, str]:
+        """slug -> (name, generation). 같은 slug 가 두 번 나오면 잡습니다.
+
+        명단은 1기까지 거슬러 채우는 중이라 계속 길어집니다. slug 가 겹치면
+        두 사람이 같은 상세 페이지 URL 을 갖게 되는데, dict 로 뭉개지면
+        조용히 한 명이 사라집니다.
+        """
         out = {}
-        for m in re.finditer(r"- name:\s*(\S+)\s*\n\s+slug:\s*(\S+)\s*\n\s+generation:\s*(\d+)", block):
-            out[m.group(2)] = (m.group(1), m.group(3))
+        for m in entry.finditer(block):
+            name, slug, gen = m.group(1), m.group(2), m.group(3)
+            if slug in out:
+                fail(f"researchers.yml {label}: slug '{slug}' 가 중복입니다 ({out[slug][0]}, {name})")
+            out[slug] = (name, gen)
         return out
 
-    current, alumni = parse(current_block), parse(alumni_block)
+    current, alumni = parse(current_block, "current"), parse(alumni_block, "alumni")
+
+    overlap = set(current) & set(alumni)
+    for slug in sorted(overlap):
+        fail(f"researchers.yml: slug '{slug}' 가 current 와 alumni 에 모두 있습니다.")
+
+    # 기수는 센터 첫 기수 이상이어야 합니다. site.yml 의 first_generation 이 기준입니다.
+    site_yml = os.path.join(ROOT, "_data", "site.yml")
+    first_gen = None
+    if os.path.exists(site_yml):
+        m = re.search(r"^\s+first_generation:\s*(\d+)", read(site_yml), re.M)
+        if m:
+            first_gen = int(m.group(1))
+    if first_gen is None:
+        fail("_data/site.yml 에 center.first_generation 이 없습니다. 홈 문구가 기수 범위를 이 값에서 읽습니다.")
+    else:
+        for label, group in (("current", current), ("alumni", alumni)):
+            for slug, (name, gen) in group.items():
+                if int(gen) < first_gen:
+                    fail(
+                        f"researchers.yml {label}: {name}({slug}) 의 기수 {gen} 가 "
+                        f"센터 첫 기수 {first_gen} 보다 앞섭니다."
+                    )
 
     for path in sorted(glob.glob(os.path.join(ROOT, "_people", "*.md"))):
         s = read(path)

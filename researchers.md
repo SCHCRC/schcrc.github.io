@@ -49,9 +49,16 @@ permalink: /researchers/
   <div class="site-shell">
     <div class="section__heading">
       <h2>졸업 및 진출 연구원</h2>
-      <p>진로 기록이 비어 있는 항목은 이전 홈페이지 명단에서 이관한 연구원입니다.</p>
+      {% comment %} 센터는 1기부터인데 명단은 아직 그 전부를 담지 못했다.
+         기수 숫자를 직접 적지 않고 데이터에서 계산해, 이전 기수를 채워 넣으면
+         이 안내가 저절로 사라진다. {% endcomment %}
+      {% assign first_gen = site.data.site.center.first_generation %}
+      {% assign alu_sorted = site.data.researchers.alumni | sort: "generation" %}
+      {% assign alu_min = alu_sorted | first %}
+      {% assign alu_max = alu_sorted | last %}
+      <p>{% if alu_min.generation > first_gen %}{{ first_gen }}기부터 이어진 명단을 순차적으로 채우고 있습니다. 지금은 {{ alu_min.generation }}기부터 {{ alu_max.generation }}기까지 정리되어 있습니다. {% endif %}진로 기록이 비어 있는 항목은 이전 홈페이지 명단에서 이관한 연구원입니다.</p>
     </div>
-    {% assign alumni = site.data.researchers.alumni | sort: "generation" | reverse %}
+    {% assign alumni = alu_sorted | reverse %}
     <div class="table-scroll">
       <table class="outcome-table">
         <caption class="visually-hidden">기수별 졸업 및 진출 연구원 기록</caption>

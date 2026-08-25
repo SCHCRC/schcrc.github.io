@@ -11,6 +11,20 @@ permalink: /
 {% assign latest_blog = site.blog | sort: "date" | reverse %}
 {% assign alumni = site.data.researchers.alumni | sort: "generation" | reverse %}
 
+{% comment %} 기수 숫자를 문구에 직접 적지 않는다. 센터는 1기부터인데 명단은
+   14기 이후만 정리돼 있어, "14기부터"가 총계처럼 읽히는 문제가 있었다.
+   범위를 데이터에서 계산하면 이전 기수를 채워 넣을 때 문구가 저절로 맞는다. {% endcomment %}
+{% assign first_gen = site.data.site.center.first_generation %}
+{% assign cur_sorted = site.data.researchers.current | sort: "generation" %}
+{% assign alu_sorted = site.data.researchers.alumni | sort: "generation" %}
+{% assign alu_min = alu_sorted | first %}
+{% assign alu_max = alu_sorted | last %}
+{% assign cur_max = cur_sorted | last %}
+{% assign latest_gen = cur_max.generation %}
+{% if alu_max.generation > latest_gen %}{% assign latest_gen = alu_max.generation %}{% endif %}
+{% assign roster_partial = false %}
+{% if alu_min.generation > first_gen %}{% assign roster_partial = true %}{% endif %}
+
 <section class="hero">
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="site-shell hero__inner">
@@ -53,8 +67,8 @@ permalink: /
           <dd>{{ reports.size }}권 · 반기 발간</dd>
         </div>
         <div>
-          <dt>배출 연구원</dt>
-          <dd>{{ alumni.size }}명 · 14기부터</dd>
+          <dt>연구원 기수</dt>
+          <dd>{{ first_gen }}기 ~ {{ latest_gen }}기</dd>
         </div>
       </dl>
     </div>
@@ -195,7 +209,7 @@ permalink: /
     <div class="section__heading section__heading--split">
       <div>
         <h2>연구원 진로</h2>
-        <p>14기부터 22기까지, 센터를 거쳐 나간 연구원이 어디로 갔는지입니다.</p>
+        <p>센터를 거쳐 나간 연구원이 어디로 갔는지입니다. {% if roster_partial %}지금은 {{ alu_min.generation }}기부터 {{ alu_max.generation }}기까지 정리되어 있고, 이전 기수는 순차적으로 채우고 있습니다.{% else %}{{ alu_min.generation }}기부터 {{ alu_max.generation }}기까지 기록했습니다.{% endif %}</p>
       </div>
       <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 현황 보기</a>
     </div>
@@ -239,7 +253,7 @@ permalink: /
       </article>
       <article class="link-panel">
         <h3>연구원 현황</h3>
-        <p>현재 연구원 {{ site.data.researchers.current | size }}명, 졸업·진출 연구원 {{ alumni | size }}명.</p>
+        <p>현재 연구원 {{ site.data.researchers.current | size }}명, 명단이 정리된 졸업·진출 연구원 {{ alumni | size }}명.</p>
         <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 보기</a>
       </article>
       <article class="link-panel">
