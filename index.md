@@ -1,5 +1,5 @@
 ---
-description: 순천향대학교 산학협력단 산하 SCH사이버보안연구센터. 학부 연구원이 랜섬웨어와 인포스틸러를 직접 분석해 반기마다 보고서를 공개합니다.
+description: 순천향대학교 산학협력단 산하 SCH사이버보안연구센터. 학부 연구원이 랜섬웨어와 피싱 사이트를 직접 분석하고, 어느 공격 그룹의 수법인지까지 좇아 반기 보고서로 공개합니다.
 title: SCH사이버보안연구센터
 permalink: /
 ---
@@ -30,13 +30,13 @@ permalink: /
   <div class="site-shell hero__inner">
     <div class="hero__content">
       <h1>
-        <span class="hero__line"><span>악성코드를 분석하고,</span></span>
-        <span class="hero__line"><span>분석한 것을 공개합니다</span></span>
+        <span class="hero__line"><span>악성코드부터 배후까지,</span></span>
+        <span class="hero__line"><span>분석해서 공개합니다</span></span>
         <span class="hero__en">SCH Cybersecurity Research Center</span>
       </h1>
       <p class="hero__lead">
-        순천향대학교 산학협력단 산하 연구센터입니다. 학부 연구원이 악성코드를 직접 분석하고,
-        그 결과를 반기 보고서로 공개합니다.
+        순천향대학교 산학협력단 산하 연구센터입니다. 학부 연구원이 랜섬웨어와 피싱 사이트를
+        직접 뜯어보고, 어느 공격 그룹의 수법인지까지 좇아 반기 보고서로 공개합니다.
       </p>
       {% comment %} 마감된 뒤에도 '모집 안내'를 주 버튼에 두면 열려 있는 것처럼 읽힌다. {% endcomment %}
       {% assign today = 'now' | date: '%Y%m%d' | plus: 0 %}
