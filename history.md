@@ -1,13 +1,13 @@
 ---
+description: 2013년 설립부터 지금까지 SCH사이버보안연구센터가 지나온 연혁과 주요 성과.
 title: 센터 연혁
 permalink: /history/
 ---
 
 <section class="page-hero">
   <div class="site-shell">
-    <p class="eyebrow">History</p>
     <h1>센터 연혁</h1>
-    <p>센터 설립 배경부터 주요 협약, 활동, 연도별 성과를 시간순으로 정리했습니다.</p>
+    <p>2013년 설립부터 지금까지.</p>
   </div>
 </section>
 
@@ -16,11 +16,16 @@ permalink: /history/
     <div class="timeline">
       {% for item in site.data.history %}
       <article class="timeline__item">
-        <div class="timeline__year">{{ item.year }}</div>
+        <p class="timeline__year">{{ item.year }}</p>
         <div class="timeline__content">
           <p class="meta">{{ item.label }}</p>
           <h2>{{ item.title }}</h2>
           <p>{{ item.description }}</p>
+          {% if item.image %}
+          <figure class="timeline__figure">
+            <img src="{{ item.image | relative_url }}" alt="{{ item.image_alt | default: item.title }}" width="200" height="200" loading="lazy">
+          </figure>
+          {% endif %}
         </div>
       </article>
       {% endfor %}

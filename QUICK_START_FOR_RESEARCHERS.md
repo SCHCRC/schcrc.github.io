@@ -1,168 +1,240 @@
 # SCHCRC 사이트 빠른 운영 매뉴얼
 
-이 문서는 다른 연구원들이 사이트를 빠르게 수정하고 운영할 수 있도록 만든 **짧은 실무용 안내서**입니다.  
-더 자세한 내용은 [UPDATE_GUIDELINES.md](/Users/yeopeva/Documents/codex_workspace/SCHCRC/UPDATE_GUIDELINES.md)를 참고하면 됩니다.
+연구원이 자주 하는 작업만 모았습니다. 자세한 규칙은 [UPDATE_GUIDELINES.md](UPDATE_GUIDELINES.md), 디자인 원칙은 [DESIGN.md](DESIGN.md)에 있습니다.
 
-## 1. 가장 자주 수정하는 파일
+**센터 소개 문구를 고칠 때**: 센터장 이름, 연구 분야, 연구원 수상 내역 같은 사실은 그 학기 센터 소개 발표자료가 기준입니다. 자료에 없는 내용은 추측해서 채우지 마세요. 대조할 항목은 [UPDATE_GUIDELINES.md 1-1 절](UPDATE_GUIDELINES.md)에 표로 있습니다.
 
-- 메인 페이지: `index.md`
-- 센터 소식 글 추가: `_news/`
-- 센터 블로그 글 추가: `_blog/`
-- 프로젝트 목록 수정: `_data/projects.yml`
-- 프로젝트 상세 수정: `_project_pages/`
-- 인프라 목록 수정: `_data/infrastructure.yml`
-- 연구원 목록 수정: `_data/researchers.yml`
-- 연구원 상세 수정: `_people/`
-- 연혁 수정: `_data/history.yml`
-- 공통 디자인 수정: `assets/css/style.scss`
-- 스크롤 애니메이션 수정: `assets/js/site.js`
+**핵심 원칙 하나**: 내용이 없으면 그 줄을 **지웁니다.** "추가 예정" 같은 문구를 채워 넣으면 방문자 화면에 그대로 찍힙니다. 비어 있으면 그 영역이 아예 나오지 않게 만들어 뒀습니다.
 
-## 2. 글 추가 방법
+---
 
-### 센터 소식
+## 1. 자주 만지는 파일
 
-`_news` 폴더에 새 Markdown 파일 추가
+| 하고 싶은 일 | 파일 |
+|---|---|
+| 소식·공지 올리기 | `_news/` 에 `.md` 새로 만들기 |
+| 보고서·분석 글 올리기 | `_blog/` 에 `.md` 새로 만들기 |
+| 프로젝트 추가·수정 | `_project_pages/` 에 `.md` 새로 만들기 |
+| 연구원 명단 수정 | `_data/researchers.yml` |
+| 연구원 상세 페이지 | `_people/<slug>.md` |
+| 연혁 추가 | `_data/history.yml` |
+| 인프라 URL 등록 | `_data/infrastructure.yml` |
+| 연구 분야 문구 | `_data/site.yml` |
+
+---
+
+## 2. 소식 올리기
+
+`_news/2026-09-01-something.md`
 
 ```md
 ---
-title: 새 공지 제목
-date: 2026-03-24
+title: 소식 제목
+date: 2026-09-01
 author: SCH사이버보안연구센터
 category: 공지
 ---
 
-공지 본문 작성
+본문을 씁니다.
 ```
 
-### 센터 블로그
+`category` 는 `공지` · `협약` · `활동` · `모집` 중에서 씁니다. 홈 화면 우측 "최근 소식"에 자동으로 올라갑니다.
 
-`_blog` 폴더에 새 Markdown 파일 추가
+### 연구원 모집 공고는 두 줄을 더 넣습니다
+
+```md
+category: 모집
+generation: 27
+closes: 2027-03-20
+```
+
+`closes` 가 **오늘 이후**면 홈 첫 화면 주 버튼이 "27기 연구원 모집 중"으로 바뀌고, 마감이 지나면 "분석 보고서 보기"로 돌아갑니다. 이 두 줄을 빼면 마감된 공고가 계속 모집 중으로 보입니다.
+
+---
+
+## 3. 블로그 글 올리기
+
+`_blog/2026-09-10-report.md`
 
 ```md
 ---
-title: 연구 글 제목
-date: 2026-03-24
-author: SCH사이버보안연구센터
-topic: 악성코드 분석
+title: 2026 상반기 분석 보고서
+date: 2026-09-10
+author: 담당 연구원 이름
+topic: 분석 보고서
+attachments:
+  - label: 2026년 상반기 악성코드 분석 보고서 PDF
+    url: /assets/uploads/files/2026-first-half/report.pdf
+    description: 다룬 악성코드 이름을 여기에 적습니다.
+    download: true
 ---
 
-연구 내용 작성
+본문.
+
+## 분석 내용
+
+| 악성코드 | 종류 | 분석가 |
+|:---:|:---:|:---:|
+| 예시 | Ransomware | 이름 |
 ```
 
-## 3. 프로젝트 수정 방법
+- `topic: 분석 보고서` 로 적으면 **홈 화면 "발간 보고서" 섹션과 첫 화면 "최신 보고서" 카드에 자동으로 올라갑니다.** 다른 값이면 블로그 목록에만 나옵니다.
+- `attachments` 의 `description` 은 홈 화면에 그대로 보입니다. 다룬 악성코드 이름을 적어 두면 방문자가 목록에서 바로 판단할 수 있습니다.
+- PDF 는 **먼저 업로드하고** 그다음 경로를 적습니다. 파일이 없으면 검사기가 배포를 막습니다.
+- 글을 내리고 싶으면 지우지 말고 `published: false` 한 줄을 넣습니다.
 
-### 목록에 보이는 정보 수정
+---
 
-`_data/projects.yml` 수정
+## 4. 프로젝트 추가
 
-예시:
-
-```yml
-- title: 프로젝트 이름
-  slug: project-slug
-  status: 진행 중
-  period: 2026
-  summary: 프로젝트 한 줄 설명
-  links:
-    - label: 결과 보고서
-      url: https://example.com
-```
-
-### 상세 페이지 수정
-
-`_project_pages/project-slug.md` 수정 또는 새 파일 추가
-
-중요:
-
-- `slug` 값은 `_data/projects.yml`과 같아야 함
-- 그래야 프로젝트 목록에서 상세 페이지로 연결됨
-
-## 4. 연구원 수정 방법
-
-### 목록에 보이는 정보 수정
-
-`_data/researchers.yml` 수정
-
-### 상세 페이지 수정
-
-`_people/slug.md` 수정 또는 새 파일 추가
-
-중요:
-
-- `slug` 값은 `_data/researchers.yml`과 같아야 함
-- 그래야 연구원 목록에서 상세 페이지로 연결됨
-
-## 5. 인프라 수정 방법
-
-`_data/infrastructure.yml` 수정
-
-예시:
-
-```yml
-- title: 연구원 공용 NAS
-  type: 스토리지
-  access: 등록 연구원 대상
-  summary: 공용 자료 저장용 NAS
-  url: https://nas.example.org
-  notes: 서비스 정책에 따라 별도 인증 필요
-```
-
-주의:
-
-- 인프라 URL은 외부 공개 가능한 것만 입력
-- 실제 권한 처리는 각 서비스에서 별도로 진행
-
-## 6. 이미지와 첨부파일
-
-- 게시글 이미지: `assets/uploads/posts/`
-- 첨부파일: `assets/uploads/files/`
-
-본문 예시:
+`_project_pages/` 에 파일 하나만 만들면 목록과 상세 페이지가 함께 생깁니다. 별도 데이터 파일은 없습니다.
 
 ```md
-![설명](/assets/uploads/posts/2026-sample/image.png)
+---
+title: 프로젝트 제목
+date: 2026-09-01
+slug: project-slug
+status: 진행 중
+period: 2026
+owner: 담당 연구원
+description: 목록에 한 줄로 나오는 요약. 검색결과 설명도 이걸 씁니다.
+overview: 상세 페이지 첫 문단.
+cover_image: /assets/uploads/projects/project-slug.png
+cover_image_alt: 이미지 설명
+topics:
+  - 주제1
+  - 주제2
+highlights:
+  - 사이드바 요약 포인트
+---
 ```
 
-## 7. 수정할 때 꼭 지킬 것
+- **`---` 로 시작하고 `---` 로 닫아야 합니다.** 닫는 줄을 빼면 제목이 파일명(영문)으로 나옵니다.
+- `description` 은 목록 요약과 검색결과 설명을 겸합니다. 필드 이름을 `summary` 로 바꾸면 검색결과에 사이트 공통 문구가 나가고, 검사기가 잡습니다.
+- `status` 를 `진행 중` · `진행 예정` · `상시 운영` 로 적으면 배지가 크림슨, 그 외(`이전 기수 프로젝트` 등)는 회색입니다.
+- 정렬은 `date` 역순입니다.
+- `activities`, `outputs` 는 실제 내용이 있을 때만 넣습니다. 없으면 그 영역이 나오지 않습니다.
 
-- 외부 공개용 사이트라는 점을 항상 기억
-- 내부 문체보다 대외 안내 문체 사용
-- 개인정보, 계정정보, 민감한 내부 정보는 올리지 않기
-- 파일명은 가능하면 영문/숫자/하이픈 사용
-- 메인 화면의 C/Assembly 코드 레인 효과는 성능을 위해 과하게 늘리지 않기
-- 새 애니메이션을 추가할 때는 모바일과 `prefers-reduced-motion` 환경을 함께 고려하기
+---
 
-## 8. 로컬에서 확인 방법
+## 5. 연구원 수정
+
+### 명단 (`_data/researchers.yml`)
+
+```yml
+current:
+  - name: 이름
+    slug: yeongmun-slug
+    generation: 27
+    role: 연구원
+    tags:
+      - 악성코드 분석
+
+alumni:
+  - name: 이름
+    slug: yeongmun-slug
+    generation: 22
+    outcome: 어디로 갔는지 한 문장.
+```
+
+진로 기록이 없으면 `outcome: "-"` 로 씁니다. YAML 에서 맨앞 하이픈은 인용부호로 감싸야 합니다.
+
+### 상세 페이지 (`_people/<slug>.md`)
+
+```md
+---
+title: 이름
+name: 이름
+slug: yeongmun-slug
+generation: 27
+status: 현재 연구원
+role: 연구원
+description: 27기 연구원. 무엇을 맡고 있는지 한 문장. 검색결과 설명도 이걸 씁니다.
+current_focus: 악성코드 분석
+specialties:
+  - 악성코드 분석
+achievements:
+  - 실제 수상·선발 내역
+---
+```
+
+- `title` 과 `name` 을 **둘 다** 넣습니다. `title` 이 없으면 브라우저 탭 제목이 영문 슬러그로 나옵니다.
+- `status` 는 `현재 연구원` 또는 `졸업 및 진출 연구원` 이며, `researchers.yml` 의 어느 섹션에 있는지와 **일치해야 합니다.** 어긋나면 검사기가 잡습니다.
+- `generation` 도 `researchers.yml` 값과 같아야 합니다.
+- 실적이 없으면 `achievements` 를 아예 빼세요.
+
+---
+
+## 6. 연혁 추가 (`_data/history.yml`)
+
+```yml
+  - year: 2026
+    label: 센터 활동
+    title: 한 줄 제목
+    description: 무슨 일이 있었는지.
+    image: /assets/uploads/history/2026-something.jpg
+    image_alt: 사진 설명
+```
+
+`image` 는 선택입니다. 행사 사진이 있으면 넣는 편이 문장보다 강합니다. 200px 정도의 작은 사진도 괜찮습니다.
+
+---
+
+## 7. 이미지와 첨부파일
+
+| 종류 | 위치 |
+|---|---|
+| 글 본문·대표 이미지 | `assets/uploads/posts/<연도-주제>/` |
+| 첨부 문서(PDF 등) | `assets/uploads/files/<연도-주제>/` |
+| 프로젝트 대표 이미지 | `assets/uploads/projects/` |
+| 연혁 사진 | `assets/uploads/history/` |
+
+파일명은 **영문·숫자·하이픈**으로만 씁니다. 한글 파일명은 macOS 시스템 Ruby 에서 빌드가 깨집니다.
+
+본문에 이미지 넣기:
+
+```md
+![설명](/assets/uploads/posts/2026-example/screen.png)
+```
+
+---
+
+## 8. 로컬에서 확인
 
 ```bash
-cd /Users/yeopeva/Documents/codex_workspace/SCHCRC
-bundle exec jekyll serve
+bundle install
+LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 RUBYOPT="-E utf-8" bundle exec jekyll serve
 ```
 
-브라우저 주소:
+http://localhost:4000 에서 열립니다. 로케일 지정은 한글이 섞인 경로 때문에 필요합니다.
 
-- `http://127.0.0.1:4000`
+---
 
-## 9. 배포 전 최소 체크
-
-- 오탈자 확인
-- 링크 동작 확인
-- 이미지/첨부파일 경로 확인
-- 공개 가능한 정보만 올렸는지 확인
-- 프로젝트/연구원 상세 연결이 되는지 확인
-- 메인 화면에서 텍스트가 코드 레인에 가리지 않는지 확인
-- 모바일에서 메뉴, 목록, 타임라인이 깨지지 않는지 확인
-- 아래 빌드 명령이 성공하는지 확인
+## 9. 올리기 전 필수 검사
 
 ```bash
-bundle exec jekyll build --source /Users/yeopeva/Documents/codex_workspace/SCHCRC --destination /tmp/schcrc_site
+bundle exec jekyll build && python3 tools/verify.py
 ```
 
-## 10. 문제 생기면 먼저 볼 것
+`실패 0건` 이 나와야 올립니다. 이 검사가 잡는 것:
 
-- 프로젝트 상세 안 열림: `_data/projects.yml`의 `slug`와 `_project_pages/*.md`의 `slug`가 같은지 확인
-- 연구원 상세 안 열림: `_data/researchers.yml`의 `slug`와 `_people/*.md`의 `slug`가 같은지 확인
-- 이미지 안 뜸: `assets/uploads/...` 경로가 맞는지 확인
-- 버튼/스타일 이상함: `assets/css/style.scss` 확인
-- 스크롤 애니메이션 이상함: `assets/js/site.js` 확인
-- 메인 화면이 버벅임: `index.md`의 `hero__code-rain` 코드 컬럼 수와 `assets/css/style.scss`의 hero 애니메이션 확인
+- 깨진 내부 링크, 없는 첨부파일·이미지
+- 헤딩 단계 건너뜀, `h1` 개수, `alt` 없는 이미지, 빈 요소
+- **"추가 예정" 같은 편집자용 문구가 방문자 화면에 노출**
+- `researchers.yml` 과 `_people` 의 기수·구분 불일치
+- 프로젝트 필수 필드 누락, front matter 구분자 오류
+- 페이지별 meta description 누락·중복
+
+---
+
+## 10. 문제가 생기면
+
+| 증상 | 원인 |
+|---|---|
+| 제목이 영문 파일명으로 나옴 | front matter 닫는 `---` 누락, 또는 `_people` 에 `title` 없음 |
+| 목록에서 상세로 안 넘어감 | `slug` 불일치 |
+| 보고서가 홈에 안 뜸 | `topic: 분석 보고서` 가 아님 |
+| 검색결과 설명이 다 똑같음 | `description` 누락. 상위 페이지는 front matter 에 직접 넣습니다 |
+| 마감된 모집이 계속 뜸 | `closes` 없음 |
+| 빌드가 `Encoding::UndefinedConversionError` | 한글 파일명. 8번의 로케일 지정으로 실행 |
+| 화면이 예전 그대로 | 브라우저 캐시. `⌘⇧R` |

@@ -1,0 +1,24 @@
+<div class="project-row">
+  <div class="project-row__status">
+    <span class="badge{% unless include.item.status == '진행 예정' or include.item.status == '진행 중' or include.item.status == '상시 운영' %} badge--quiet{% endunless %}">{{ include.item.status }}</span>
+    {% if include.item.period %}<span class="project-row__period">{{ include.item.period }}</span>{% endif %}
+  </div>
+  <div class="project-row__body">
+    <h3><a class="project-row__link" href="{{ include.item.url | relative_url }}">{{ include.item.title }}</a></h3>
+    <p>{{ include.item.description }}</p>
+  </div>
+  <dl class="project-row__facts">
+    {% if include.item.owner %}
+    <div>
+      <dt>담당</dt>
+      <dd>{{ include.item.owner }}</dd>
+    </div>
+    {% endif %}
+    {% if include.item.topics and include.item.topics.size > 0 %}
+    <div>
+      <dt>핵심 주제</dt>
+      <dd>{{ include.item.topics | join: " · " }}</dd>
+    </div>
+    {% endif %}
+  </dl>
+</div>
