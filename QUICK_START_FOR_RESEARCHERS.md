@@ -17,6 +17,7 @@
 | 프로젝트 추가·수정 | `_project_pages/` 에 `.md` 새로 만들기 |
 | 연구원 명단 수정 | `_data/researchers.yml` |
 | 연구원 상세 페이지 | `_people/<slug>.md` |
+| 실적(수상·선발·진출·진학) 추가 | `_data/achievements.yml` |
 | 연혁 추가 | `_data/history.yml` |
 | 인프라 URL 등록 | `_data/infrastructure.yml` |
 | 연구 분야 문구 | `_data/site.yml` |
@@ -139,6 +140,17 @@ alumni:
 
 진로 기록이 없으면 `outcome: "-"` 로 씁니다. YAML 에서 맨앞 하이픈은 인용부호로 감싸야 합니다.
 
+**기수를 확인할 수 없으면 `generation:` 을 값 없이 비워 둡니다.** 표의 기수 칸에 `-` 가 나오고, 기수순 정렬에서 빠져 목록 끝에 붙습니다. 나중에 기수가 확인되면 숫자만 채우면 제자리로 갑니다.
+
+#### 이전 기수(1~13기)를 채워 넣을 때
+
+`alumni` 에 줄만 추가하면 됩니다. **문구는 손대지 않습니다.** 홈 첫 화면의 기수 범위와 "이전 기수는 순차적으로 채우고 있습니다" 안내는 이 파일에서 계산하므로, 1기가 들어오면 그 안내가 저절로 사라집니다.
+
+- 기수 숫자를 문구에 직접 적지 마세요. 예전에 "14기부터"가 하드코딩돼 있어 13명이 배출 연구원 총계처럼 읽혔습니다.
+- 센터 첫 기수는 `_data/site.yml` 의 `center.first_generation` 입니다. 이 값보다 앞선 기수를 적으면 검사기가 잡습니다.
+- `slug` 는 전체에서 유일해야 합니다. 동명이인은 `gildong-hong`, `gildong-hong-2` 처럼 구분하세요. 겹치면 두 사람이 같은 상세 페이지를 가리키게 되고, 검사기가 잡습니다.
+- 상세 페이지(`_people/<slug>.md`)는 없어도 됩니다. 없으면 표에 이름만 나옵니다.
+
 ### 상세 페이지 (`_people/<slug>.md`)
 
 ```md
@@ -153,15 +165,31 @@ description: 27기 연구원. 무엇을 맡고 있는지 한 문장. 검색결�
 current_focus: 악성코드 분석
 specialties:
   - 악성코드 분석
-achievements:
-  - 실제 수상·선발 내역
 ---
 ```
 
 - `title` 과 `name` 을 **둘 다** 넣습니다. `title` 이 없으면 브라우저 탭 제목이 영문 슬러그로 나옵니다.
 - `status` 는 `현재 연구원` 또는 `졸업 및 진출 연구원` 이며, `researchers.yml` 의 어느 섹션에 있는지와 **일치해야 합니다.** 어긋나면 검사기가 잡습니다.
 - `generation` 도 `researchers.yml` 값과 같아야 합니다.
-- 실적이 없으면 `achievements` 를 아예 빼세요.
+- **수상·선발 내역은 여기에 적지 않습니다.** `_data/achievements.yml` 에 넣으면 이 페이지의 "주요 성과"에 자동으로 나옵니다. 두 곳에 적어 두면 같은 사건의 표기가 갈립니다(실제로 6건이 어긋나 있었습니다). 검사기가 막습니다.
+
+---
+
+## 5-1. 실적 추가 (`_data/achievements.yml`)
+
+```yml
+- year: 2026
+  kind: 수상            # 수상 | 선발 | 진출 | 진학
+  title: 대회 이름과 상 이름
+  org: 주최 기관
+  members:
+    - { name: 이름, generation: 27, slug: yeongmun-slug }
+```
+
+- `kind` 는 네 가지만 씁니다. 연도별로 묶여 자동 정렬됩니다.
+- `slug` 가 `_people` 에 있으면 이름에 상세 페이지 링크가 걸립니다. 없으면 이름만 나옵니다.
+- 같은 대회의 다른 해 수상은 별도 항목입니다. 예를 들어 호남 사이버보안컨퍼런스는 24년 최우수상과 25년 우수상이 다른 건입니다.
+- **발표자료에 없는 실적은 넣지 않습니다.** 상 이름과 기관명은 자료 표기 그대로 씁니다.
 
 ---
 
@@ -224,6 +252,7 @@ bundle exec jekyll build && python3 tools/verify.py
 - `researchers.yml` 과 `_people` 의 기수·구분 불일치
 - 프로젝트 필수 필드 누락, front matter 구분자 오류
 - 페이지별 meta description 누락·중복
+- 연구원 slug 중복, current/alumni 양쪽 등장, 첫 기수보다 앞선 기수
 
 ---
 

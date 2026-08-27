@@ -1,5 +1,5 @@
 ---
-description: 순천향대학교 산학협력단 산하 SCH사이버보안연구센터. 학부 연구원이 랜섬웨어와 인포스틸러를 직접 분석해 반기마다 보고서를 공개합니다.
+description: 순천향대학교 산학협력단 산하 SCH사이버보안연구센터. 학부 연구원이 랜섬웨어와 피싱 사이트를 직접 분석하고, 어느 공격 그룹의 수법인지까지 추적해 반기 보고서로 공개합니다.
 title: SCH사이버보안연구센터
 permalink: /
 ---
@@ -9,20 +9,36 @@ permalink: /
 {% assign latest_news = site.news | sort: "date" | reverse %}
 {% assign projects = site.project_pages | sort: "date" | reverse %}
 {% assign latest_blog = site.blog | sort: "date" | reverse %}
-{% assign alumni = site.data.researchers.alumni | sort: "generation" | reverse %}
+{% assign alumni_unknown = site.data.researchers.alumni | where_exp: "p", "p.generation == nil" %}
+{% assign alumni = site.data.researchers.alumni | where_exp: "p", "p.generation" | sort: "generation" | reverse %}
+
+{% comment %} 기수 숫자를 문구에 직접 적지 않는다. 센터는 1기부터인데 명단은
+   14기 이후만 정리돼 있어, "14기부터"가 총계처럼 읽히는 문제가 있었다.
+   범위를 데이터에서 계산하면 이전 기수를 채워 넣을 때 문구가 저절로 맞는다. {% endcomment %}
+{% assign first_gen = site.data.site.center.first_generation %}
+{% assign cur_sorted = site.data.researchers.current | sort: "generation" %}
+{% comment %} 기수를 확인할 수 없는 연구원이 있다. nil 이 섞이면 sort 결과의
+   양 끝이 엉키므로, 범위 계산은 기수가 있는 항목만으로 한다. {% endcomment %}
+{% assign alu_known = site.data.researchers.alumni | where_exp: "p", "p.generation" | sort: "generation" %}
+{% assign alu_min = alu_known | first %}
+{% assign alu_max = alu_known | last %}
+{% assign cur_max = cur_sorted | last %}
+{% assign latest_gen = cur_max.generation %}
+{% if alu_max.generation > latest_gen %}{% assign latest_gen = alu_max.generation %}{% endif %}
+{% assign roster_partial = false %}
+{% if alu_min.generation > first_gen %}{% assign roster_partial = true %}{% endif %}
 
 <section class="hero">
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="site-shell hero__inner">
     <div class="hero__content">
       <h1>
-        <span class="hero__line"><span>악성코드를 분석하고,</span></span>
-        <span class="hero__line"><span>분석한 것을 공개합니다</span></span>
+        <span class="hero__line"><span>악성코드부터 배후까지.</span></span>
         <span class="hero__en">SCH Cybersecurity Research Center</span>
       </h1>
       <p class="hero__lead">
-        순천향대학교 산학협력단 산하 연구센터입니다. 학부 연구원이 악성코드를 직접 분석하고,
-        그 결과를 반기 보고서로 공개합니다.
+        순천향대학교 산학협력단 산하 연구센터입니다. 학부 연구원이 랜섬웨어와 피싱 사이트를
+        직접 뜯어보고, 어느 공격 그룹의 수법인지까지 추적해 반기 보고서로 공개합니다.
       </p>
       {% comment %} 마감된 뒤에도 '모집 안내'를 주 버튼에 두면 열려 있는 것처럼 읽힌다. {% endcomment %}
       {% assign today = 'now' | date: '%Y%m%d' | plus: 0 %}
@@ -53,8 +69,8 @@ permalink: /
           <dd>{{ reports.size }}권 · 반기 발간</dd>
         </div>
         <div>
-          <dt>배출 연구원</dt>
-          <dd>{{ alumni.size }}명 · 14기부터</dd>
+          <dt>연구원 기수</dt>
+          <dd>{{ first_gen }}기 ~ {{ latest_gen }}기</dd>
         </div>
       </dl>
     </div>
@@ -150,7 +166,7 @@ permalink: /
     <div class="section__heading section__heading--split">
       <div>
         <h2>수행 프로젝트</h2>
-        <p>기수별 분석 도구와 탐지 모델, 그리고 매년 운영하는 신입 교육 과정.</p>
+        <p>기수별 분석 도구와 탐지 모델, 매년 운영하는 신입 교육 과정.</p>
       </div>
       <a class="text-link" href="{{ '/projects/' | relative_url }}">프로젝트 전체 보기</a>
     </div>
@@ -195,7 +211,7 @@ permalink: /
     <div class="section__heading section__heading--split">
       <div>
         <h2>연구원 진로</h2>
-        <p>14기부터 22기까지, 센터를 거쳐 나간 연구원이 어디로 갔는지입니다.</p>
+        <p>센터를 거쳐 나간 연구원이 어디로 갔는지입니다.{% if roster_partial %} 지금 정리된 것은 {{ alu_min.generation }}기 이후입니다.{% endif %}</p>
       </div>
       <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 현황 보기</a>
     </div>
@@ -213,7 +229,7 @@ permalink: /
           {% for person in alumni limit: 6 %}
           {% assign detail = site.people | where: "slug", person.slug | first %}
           <tr>
-            <td>{{ person.generation }}기</td>
+            <td>{% if person.generation %}{{ person.generation }}기{% else %}-{% endif %}</td>
             <td>
               {% if detail %}<a href="{{ detail.url | relative_url }}">{{ person.name }}</a>{% else %}{{ person.name }}{% endif %}
             </td>
@@ -239,8 +255,13 @@ permalink: /
       </article>
       <article class="link-panel">
         <h3>연구원 현황</h3>
-        <p>현재 연구원 {{ site.data.researchers.current | size }}명, 졸업·진출 연구원 {{ alumni | size }}명.</p>
+        <p>현재 연구원 {{ site.data.researchers.current | size }}명, 명단이 정리된 졸업·진출 연구원 {{ site.data.researchers.alumni | size }}명.</p>
         <a class="text-link" href="{{ '/researchers/' | relative_url }}">연구원 보기</a>
+      </article>
+      <article class="link-panel">
+        <h3>센터 실적</h3>
+        <p>수상 {{ site.data.achievements | where: "kind", "수상" | size }}건, 선발·진출·진학 기록.</p>
+        <a class="text-link" href="{{ '/achievements/' | relative_url }}">실적 보기</a>
       </article>
       <article class="link-panel">
         <h3>센터 연혁</h3>

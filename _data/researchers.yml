@@ -73,3 +73,7 @@ alumni:
     slug: seonghun-kim
     generation: 22
     outcome: 호남 사이버보안컨퍼런스 침해대응 경진대회에서 최우수상을 받았습니다.
+  - name: 차현석
+    slug: hyeonseok-cha
+    generation:
+    outcome: 2022 상반기 보고서의 Conti 랜섬웨어 분석을 담당했습니다.

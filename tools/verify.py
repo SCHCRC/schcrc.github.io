@@ -59,6 +59,11 @@ EDITOR_PLACEHOLDERS = [
     "추후 등록",
     "TODO",
     "Lorem ipsum",
+    # 아래는 실제로 새어 나간 적이 있는 표현입니다.
+    "확정된 항목부터",   # "접속 URL은 확정된 항목부터 등록합니다" - 편집자 지시문
+    "연결 가능",         # "향후 산출물 링크 연결 가능" - 실적이 아닌 추측
+    "축적 가능",         # "케이스 기반 자료 축적 가능"
+    "이관 출처",         # 이전 저장소 이름은 유지보수 기록이지 방문자용이 아닙니다.
 ]
 
 failures: list[str] = []
@@ -213,13 +218,50 @@ def check_researcher_consistency() -> None:
         return
     current_block, alumni_block = text.split("alumni:", 1)
 
-    def parse(block: str) -> dict[str, str]:
+    # generation 은 비워 둘 수 있습니다(기수 확인 불가). 값을 요구하면 그 항목이
+    # 검사에서 통째로 빠져, 나중에 _people 페이지를 만들 때 엉뚱한 실패가 납니다.
+    entry = re.compile(r"- name:\s*(\S+)\s*\n\s+slug:\s*(\S+)\s*\n\s+generation:[ \t]*(\d*)")
+
+    def parse(block: str, label: str) -> dict[str, str]:
+        """slug -> (name, generation). 같은 slug 가 두 번 나오면 잡습니다.
+
+        명단은 1기까지 거슬러 채우는 중이라 계속 길어집니다. slug 가 겹치면
+        두 사람이 같은 상세 페이지 URL 을 갖게 되는데, dict 로 뭉개지면
+        조용히 한 명이 사라집니다.
+        """
         out = {}
-        for m in re.finditer(r"- name:\s*(\S+)\s*\n\s+slug:\s*(\S+)\s*\n\s+generation:\s*(\d+)", block):
-            out[m.group(2)] = (m.group(1), m.group(3))
+        for m in entry.finditer(block):
+            name, slug, gen = m.group(1), m.group(2), m.group(3)
+            if slug in out:
+                fail(f"researchers.yml {label}: slug '{slug}' 가 중복입니다 ({out[slug][0]}, {name})")
+            out[slug] = (name, gen)
         return out
 
-    current, alumni = parse(current_block), parse(alumni_block)
+    current, alumni = parse(current_block, "current"), parse(alumni_block, "alumni")
+
+    overlap = set(current) & set(alumni)
+    for slug in sorted(overlap):
+        fail(f"researchers.yml: slug '{slug}' 가 current 와 alumni 에 모두 있습니다.")
+
+    # 기수는 센터 첫 기수 이상이어야 합니다. site.yml 의 first_generation 이 기준입니다.
+    site_yml = os.path.join(ROOT, "_data", "site.yml")
+    first_gen = None
+    if os.path.exists(site_yml):
+        m = re.search(r"^\s+first_generation:\s*(\d+)", read(site_yml), re.M)
+        if m:
+            first_gen = int(m.group(1))
+    if first_gen is None:
+        fail("_data/site.yml 에 center.first_generation 이 없습니다. 홈 문구가 기수 범위를 이 값에서 읽습니다.")
+    else:
+        for label, group in (("current", current), ("alumni", alumni)):
+            for slug, (name, gen) in group.items():
+                if not gen:
+                    continue  # 기수 확인 불가. 범위 검사 대상이 아닙니다.
+                if int(gen) < first_gen:
+                    fail(
+                        f"researchers.yml {label}: {name}({slug}) 의 기수 {gen} 가 "
+                        f"센터 첫 기수 {first_gen} 보다 앞섭니다."
+                    )
 
     for path in sorted(glob.glob(os.path.join(ROOT, "_people", "*.md"))):
         s = read(path)
@@ -232,6 +274,12 @@ def check_researcher_consistency() -> None:
         slug, gen, status = field("slug"), field("generation"), field("status")
         if not field("title"):
             fail(f"{base}: title 이 없습니다. 없으면 브라우저 탭 제목이 영문 슬러그로 나옵니다.")
+        if re.search(r"^achievements:", s, re.M):
+            # 두 곳에 적어 두었을 때 같은 사건의 표기가 6건 갈렸습니다.
+            fail(
+                f"{base}: achievements 는 _people 에 적지 않습니다. "
+                f"_data/achievements.yml 에 넣으면 연구원 페이지에 자동으로 나옵니다."
+            )
         if slug is None:
             fail(f"{base}: slug 이 없습니다.")
             continue
@@ -244,7 +292,13 @@ def check_researcher_consistency() -> None:
             fail(f"{base}: slug '{slug}' 가 researchers.yml 에 없습니다. 목록에서 상세로 연결되지 않습니다.")
             continue
 
-        if gen != want_gen:
+        if not want_gen:
+            if gen:
+                fail(
+                    f"{base}: researchers.yml 은 '{slug}' 를 기수 미확인으로 두었는데 "
+                    f"_people 에는 {gen} 이 있습니다. 확인된 기수라면 researchers.yml 에도 넣으세요."
+                )
+        elif gen != want_gen:
             fail(f"{base}: 기수 불일치 (_people {gen} vs researchers.yml {want_gen})")
         if status != want_status:
             fail(f'{base}: 구분 불일치 (_people "{status}" vs researchers.yml 기준 "{want_status}")')

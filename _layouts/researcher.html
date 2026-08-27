@@ -118,12 +118,28 @@ layout: default
           </dl>
         </div>
 
-        {% if page.achievements and page.achievements.size > 0 %}
+        {% comment %} 성과는 _data/achievements.yml 하나만 원본으로 둔다.
+           _people 에도 achievements 를 적어 두었을 때 같은 사건의 표기가
+           갈렸다("AhnLab ASEC 분석팀 진출" vs "ASEC 분석팀 합격" 등 6건).
+           Liquid 로는 배열을 쌓기 어려워 세는 패스와 그리는 패스를 나눈다. {% endcomment %}
+        {% assign my_count = 0 %}
+        {% for record in site.data.achievements %}
+          {% assign hit = record.members | where: "slug", page.slug %}
+          {% if hit.size > 0 %}{% assign my_count = my_count | plus: 1 %}{% endif %}
+        {% endfor %}
+        {% if my_count > 0 %}
         <div class="researcher-meta">
           <h3>주요 성과</h3>
           <ul class="researcher-achievements">
-            {% for item in page.achievements %}<li>{{ item }}</li>{% endfor %}
+            {% for record in site.data.achievements %}
+              {% assign hit = record.members | where: "slug", page.slug %}
+              {% if hit.size > 0 %}
+                {% assign ystr = record.year | append: "" %}
+                <li>{% unless record.title contains ystr %}{{ record.year }} · {% endunless %}{{ record.title }}</li>
+              {% endif %}
+            {% endfor %}
           </ul>
+          <p class="researcher-back"><a class="text-link" href="{{ '/achievements/' | relative_url }}">센터 실적 전체 보기</a></p>
         </div>
         {% endif %}
 

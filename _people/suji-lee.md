@@ -9,6 +9,4 @@ current_affiliation: MCL 연구실(이유식 교수님) 석사 과정
 specialties:
   - 악성코드 분석
   - 문서형 악성코드 탐지
-achievements:
-  - MCL 연구실 석사 과정 진학
 ---

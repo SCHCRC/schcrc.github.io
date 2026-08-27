@@ -20,5 +20,3 @@ attachments:
 | GlobeImposter | Ransomware | 신동호 |
 | Lukitus | Ransomware | 송현호 |
 | Vidar | InfoStealer | 이수지 |
-
-보고서 PDF는 하단 첨부파일에서 다운로드할 수 있습니다.

@@ -42,7 +42,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           메뉴
         </button>
         <nav class="site-nav" id="site-nav" aria-label="주요 메뉴">
-          {% assign nav = "/news/,센터 소식|/blog/,센터 블로그|/projects/,센터 프로젝트|/infrastructure/,센터 인프라|/researchers/,연구원 현황|/history/,센터 연혁" | split: "|" %}
+          {% assign nav = "/news/,센터 소식|/blog/,센터 블로그|/projects/,센터 프로젝트|/achievements/,센터 실적|/infrastructure/,센터 인프라|/researchers/,연구원 현황|/history/,센터 연혁" | split: "|" %}
           {% for entry in nav %}
             {% assign parts = entry | split: "," %}
             {% assign href = parts[0] %}

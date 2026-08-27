@@ -23,5 +23,3 @@ attachments:
 | Raccoon Stealer 2.0 | InfoStealer | 안병열 |
 | AgentTesla | InfoStealer | 송현호 |
 | CryptBot | InfoStealer | 신동호 |
-
-보고서 PDF는 하단 첨부파일에서 다운로드할 수 있습니다.

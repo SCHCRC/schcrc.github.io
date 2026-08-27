@@ -1,18 +1,18 @@
   - year: 2013
     label: 센터 설립
-    title: SCH 사이버보안연구센터 설립 
+    title: SCH사이버보안연구센터 설립
     description: 최근 지능화된 사이버 위협 및 사이버전 대응 능력 확보 및 국내외 유관기관과의 사이버 보안 협력 강화를 위해 센터가 설립되었습니다.
     image: /assets/uploads/history/2013-center-founding.jpg
     image_alt: 센터 설립 당시 행사 사진
   - year: 2014
     label: 센터 활동
-    title: SCH 사이버보안연구센터 컨퍼런스 개최
+    title: SCH사이버보안연구센터 컨퍼런스 개최
     description: 사이버전과 APT의 악성코드를 분석하고 연구하는 SCH사이버보안연구센터의 주요 악성코드 정보를 공유하는 컨퍼런스를 개최했습니다.
     image: /assets/uploads/history/2014-conference.jpg
     image_alt: 2014 센터 컨퍼런스 현장
   - year: 2017
     label: 센터 활동
-    title: 더블체인과 블록체인 협약체결
+    title: 더블체인과 블록체인 협약 체결
     description: 블록체인보안 전문인력 양성을 위한 더블체인과의 협약을 체결했습니다.
     image: /assets/uploads/history/2017-doublechain-mou.jpg
     image_alt: 더블체인 업무협약 체결식
